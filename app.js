@@ -18,7 +18,13 @@ app.get('/', function (req, res) {
 		res.end();
 	});
 });
-
+app.get('/trial', function (req, res) {
+	console.log("request");
+	console.log(req.query);
+	//if (req.query) {
+	res.send("heelo");
+	//}
+});
 
 
 app.listen(3000, function () {
