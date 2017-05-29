@@ -1,3 +1,5 @@
+const server = "192.168.225.42";
+
 $(document).ready(function () {
 	// initialize jquery
 	$('.button-collapse').sideNav();
@@ -32,7 +34,8 @@ $("#sign-in-btn").click(function () {
 		uname: $("#username").val(),
 		pword: $("#password").val()
 	}
-	$.get("http://localhost:3000/trial", user, function (data) {
+	$.get("/trial", user, function (data) {
 		console.log(data);
+		$("#sign-in-btn").html(data)
 	});
 })
