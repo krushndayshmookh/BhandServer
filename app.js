@@ -16,14 +16,16 @@ app.use(function (req, res, next) {
 });
 
 app.get('/', function (req, res) {
-	res.sendFile("www/index.html") //, function (err, data) {
-	/*res.writeHead(200, {
-		'Content-Type': 'text/html'
-	});*/
-	//res.write(data);
-	//res.end();
-	//	});
+	fs.readFile("www/index.html", function (err, data) {
+		/*res.writeHead(200, {
+			'Content-Type': 'text/html'
+		});*/
+		res.write(data);
+		res.end();
+	});
 });
+
+
 app.get('/login', function (req, res) {
 	//console.log("request");
 	//console.log(req.query);
@@ -73,6 +75,9 @@ app.listen(3000, function () {
 
 
 // must be at last
-//app.use(function (req, res, next) {
-// res.status(404).sendFile("www/pages/error404.html")
-//})
+app.use(function (req, res, next) {
+	fs.readFile("www/index.html", function (err, data) {
+		res.status(404).write(data);
+		res.end();
+	});
+});
