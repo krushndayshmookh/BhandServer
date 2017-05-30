@@ -59,6 +59,59 @@ app.get('/login', function (req, res) {
 
 });
 
+
+
+
+app.get('/userdata', function (req, res) {
+	//console.log("request");
+	//console.log(req.query);
+	username = req.query.username;
+	//console.log(username);
+
+	fs.readFile("data/users/users.json", function (err0, userdata) {
+		users = JSON.parse(userdata);
+
+		//console.log(users);
+		//console.log(JSON.parse(data));
+		//console.log(username);
+		//console.log(users[username].type);
+		if (username in users) {
+			//console.log(users[username].type);
+			userpath = "data/users/" + users[username].type +"/"+username+"/";
+			//console.log(userpath);
+			profilepath = userpath +"profile.json";
+			//console.log(profilepath);
+			fs.readFile(profilepath , function (err1, profiledata) {
+			//console.log(profiledata);
+
+				profile = JSON.parse(profiledata);
+
+				//console.log(profile);
+				res.send(profile);
+				console.log("Profile of "+username+" sent.");
+
+
+
+
+				/*fs.readFile(userpath+"user.png",function(err2,imgdata){
+					profile["user-img"] = imgdata;
+					//console.log(profile["user-img"]);
+
+
+				});*/
+			});
+
+		}
+	});
+
+});
+
+
+
+
+
+
+
 /*app.get('/apk', function (req, res) {
 	console.log("requested for app");
 	res.sendFile("/files/BA.apk");
