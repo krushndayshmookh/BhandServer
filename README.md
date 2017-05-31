@@ -1,2 +1,2 @@
-# BhandServer
-Server side code for the BhandApp
+# Clavi Server
+Server side code for Clavi.
