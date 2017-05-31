@@ -1,0 +1,12 @@
+{
+	"samplestudent": {
+		"password": "samplestudentpassword",
+		"type": "students"
+	},
+
+	"2016ACSC0108072": {
+		"password": "2016ACSC0108072",
+		"type": "students"
+	}
+
+}
