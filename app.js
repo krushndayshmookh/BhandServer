@@ -77,18 +77,18 @@ app.get('/userdata', function (req, res) {
 		//console.log(users[username].type);
 		if (username in users) {
 			//console.log(users[username].type);
-			userpath = "data/users/" + users[username].type +"/"+username+"/";
+			userpath = "data/users/" + users[username].type + "/" + username + "/";
 			//console.log(userpath);
-			profilepath = userpath +"profile.json";
+			profilepath = userpath + "profile.json";
 			//console.log(profilepath);
-			fs.readFile(profilepath , function (err1, profiledata) {
-			//console.log(profiledata);
+			fs.readFile(profilepath, function (err1, profiledata) {
+				//console.log(profiledata);
 
 				profile = JSON.parse(profiledata);
 
 				//console.log(profile);
 				res.send(profile);
-				console.log("Profile of "+username+" sent.");
+				console.log("Profile of " + username + " sent.");
 
 
 
@@ -99,6 +99,45 @@ app.get('/userdata', function (req, res) {
 
 
 				});*/
+			});
+
+		}
+	});
+
+});
+
+app.get('/username-name', function (req, res) {
+	//console.log("request");
+	//console.log(req.query);
+	username = req.query.user;
+	//console.log(username);
+
+	fs.readFile("data/users/users.json", function (err0, userdata) {
+		users = JSON.parse(userdata);
+
+		//console.log(users);
+		//console.log(JSON.parse(data));
+		//console.log(username);
+		//console.log(users[username].type);
+		if (username in users) {
+			//console.log(users[username].type);
+			userpath = "data/users/" + users[username].type + "/" + username + "/";
+			//console.log(userpath);
+			profilepath = userpath + "profile.json";
+			//console.log(profilepath);
+			fs.readFile(profilepath, function (err1, profiledata) {
+				//console.log(profiledata);
+
+				profile = JSON.parse(profiledata);
+
+				//console.log(profile);
+				res.send(profile["user-name"]);
+				console.log("Name of " + username + " sent.");
+
+
+
+
+
 			});
 
 		}
