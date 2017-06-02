@@ -1,15 +1,15 @@
 {
-	"user-name": "Eclair",
+	"Name": "Eclair",
 
-	"user-reg-no": "0123456789ABCDEF",
-	"user-degree": "Bachelor of Engineering",
-	"user-branch": "CSE",
-	"user-sem": "III",
-	"user-fname": "Lollipop",
-	"user-mname": "Kitkat",
-	"user-gender": "Female",
-	"user-dob": "27 July 1998",
-	"user-height": 150,
-	"user-weight": 48,
-	"user-blood": "O+"
+	"Registration Number": "0123456789ABCDEF",
+	"Degree": "Bachelor of Engineering",
+	"Branch": "CSE",
+	"Semester": "III",
+	"Father's Name": "Lollipop",
+	"Mother's Name": "Kitkat",
+	"Gender": "Female",
+	"Date of Birth": "27 July 1998",
+	"Height": "150 cm",
+	"Weight": "48 kg",
+	"Blood Group": "O+"
 }

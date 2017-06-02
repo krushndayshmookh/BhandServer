@@ -1,0 +1,20 @@
+{
+	"notices": [
+		{
+			"TextDepartmental0": "link0"
+		},
+		{
+			"TextDepartmental1": "link1"
+		}
+	],
+
+	"events": [
+		{
+			"EvenDepartmentalt0": "link0"
+		},
+		{
+			"EvenDepartmentalt1": "link1"
+		}
+	]
+
+}

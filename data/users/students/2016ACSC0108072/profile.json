@@ -1,15 +1,15 @@
 {
-	"user-name": "Krushn Dayshmookh",
+	"Name": "Krushn Dayshmookh",
 
-	"user-reg-no": "2016ACSC0108072",
-	"user-degree": "Bachelor of Engineering",
-	"user-branch": "CSE",
-	"user-sem": "III",
-	"user-fname": "Tooka",
-	"user-mname": "Revti",
-	"user-gender": "Male",
-	"user-dob": "27 July 1998",
-	"user-height": 150,
-	"user-weight": 48,
-	"user-blood": "O+"
+	"Registration Number": "2016ACSC0108072",
+	"Degree": "Bachelor of Engineering",
+	"Branch": "CSE",
+	"Semester": "III",
+	"Father's Name": "Tooka",
+	"Mother's Name": "Revti",
+	"Gender": "Male",
+	"Date of Birth": "27 July 1998",
+	"Height": "150 cm",
+	"Weight": "48 kg",
+	"Blood Group": "O+"
 }

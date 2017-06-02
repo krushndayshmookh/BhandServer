@@ -1,4 +1,4 @@
-//=============================================================================================================================
+//==============================================================================
 
 /* 
  * Author: Krushn Dayshmookh
@@ -13,14 +13,11 @@
 
 
 
-
-//=============================================================================================================================
-
-/*                            ****************************
-                              *                          *
-                              *   GLOBAL DECLARATIONS    *
-                              *                          *
-                              ****************************
+/****************************
+ *                          *
+ *   GLOBAL DECLARATIONS    ****************************************************
+ *                          *
+ ****************************
  */
 
 
@@ -30,6 +27,7 @@ const fs = require('fs');
 var config = require('./config');
 
 
+//var usermanager = require('./scripts/usermanager');
 
 
 
@@ -37,13 +35,12 @@ var config = require('./config');
 
 
 
-//=============================================================================================================================
 
-/*                            ****************************
-                              *                          *
-                              *         APP DATA         *
-                              *                          *
-                              ****************************
+/****************************
+ *                          *
+ *         APP DATA         ****************************************************
+ *                          *
+ ****************************
 
 
  * This part is used for serving the app data which will be accessible througn the app.
@@ -78,11 +75,36 @@ app.get('/', function (req, res) {
 
 
 app.get('/login', function (req, res) {
+
+
 	//console.log("request");
 	//console.log(req.query);
 	username = req.query.uname;
 	//console.log(username);
 	password = req.query.pword;
+
+	/*console.log("returned= " + usermanager.checkUser(username));
+	//console.log(users);
+	//console.log(JSON.parse(data));
+	//console.log(username)
+	/*if (usermanager.checkUser(username)) {
+
+		if (usermanager.checkPassword(username, password)) {
+			res.send("true");
+			//console.log(users[username].password);
+			console.log(username + " logged in.");
+		} else {
+			res.send("false");
+			console.log(username + " entered incorrect password.");
+		}
+
+	} else {
+		res.send("invalid");
+		console.log(username + " does not exist.");
+	}
+*/
+
+
 	fs.readFile("data/users/users.json", function (err, data) {
 		users = JSON.parse(data);
 
@@ -108,6 +130,8 @@ app.get('/login', function (req, res) {
 	});
 
 
+
+
 });
 
 
@@ -119,7 +143,7 @@ app.get('/userdata', function (req, res) {
 	username = req.query.username;
 	//console.log(username);
 
-	fs.readFile("data/users/users.json", function (err0, userdata) {
+	fs.readFile(config.userlist, function (err0, userdata) {
 		users = JSON.parse(userdata);
 
 		//console.log(users);
@@ -162,10 +186,8 @@ app.get('/username-name', function (req, res) {
 	//console.log(req.query);
 	username = req.query.user;
 	//console.log(username);
-
 	fs.readFile("data/users/users.json", function (err0, userdata) {
 		users = JSON.parse(userdata);
-
 		//console.log(users);
 		//console.log(JSON.parse(data));
 		//console.log(username);
@@ -178,23 +200,34 @@ app.get('/username-name', function (req, res) {
 			//console.log(profilepath);
 			fs.readFile(profilepath, function (err1, profiledata) {
 				//console.log(profiledata);
-
 				profile = JSON.parse(profiledata);
-
 				//console.log(profile);
-				res.send(profile["user-name"]);
+				res.send(profile["Name"]);
 				console.log("Name of " + username + " sent.");
-
-
-
-
-
 			});
-
 		}
 	});
 
 });
+
+
+
+
+app.get('/notifications', function (req, res) {
+	type = req.query.type;
+	//  type can be "departmantal" or "general"
+
+	//console.log(type);
+	fs.readFile("data/notifications/" + type + ".json", function (err0, notificationdata) {
+		notifications = JSON.parse(notificationdata);
+		//console.log(notifications);
+		res.send(notifications);
+		console.log(type + " notifications sent.")
+	});
+
+});
+
+
 
 
 
@@ -233,20 +266,11 @@ app.use(function (req, res, next) {
 
 
 
-
-
-
-
-
-
-//=================================================================================================================================
-
-
-/*                            ****************************
-                              *                          *
-                              *          SERVER          *
-                              *                          *
-                              ****************************
+/****************************
+ *                          *
+ *          SERVER          ****************************************************
+ *                          *
+ ****************************
 
 
  * This part is used for serving the admin pages which will not be accessible througn the app.
@@ -275,9 +299,9 @@ server.use(function (req, res, next) {
 
 
 server.get('/', function (req, res) {
-	res.sendFile("index.html");//, function (err, data) {
-		//res.write(data);
-		//res.end();
+	res.sendFile("index.html"); //, function (err, data) {
+	//res.write(data);
+	//res.end();
 	//});
 });
 
@@ -301,10 +325,3 @@ server.use(function (req, res, next) {
 		res.end();
 	});
 });
-
-
-
-
-
-
-
