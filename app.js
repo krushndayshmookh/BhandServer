@@ -295,7 +295,7 @@ app.use(function (req, res, next) {
 
 /****************************
  *                          *
- *          SERVER          ****************************************************
+ *       DATA-SERVER        ****************************************************
  *                          *
  ****************************
 
@@ -306,37 +306,34 @@ app.use(function (req, res, next) {
  *     User addition for the manager
  *     Other priviledged accounts
  *
- * This part merged in app.js as it will  be easier to run two ports in same process in server like openshift http://www.openshift.com
+ * This part merged in app.js as it will  be easier to run two ports in same process in dataServer like openshift http://www.openshift.com
  *
  */
 
 
-const server = express();
+const dataServer = express();
 
 
 
-server.use(express.static('www'))
+dataServer.use(express.static('www'))
 //app.use('/data', express.static('data'))
 
-server.use(function (req, res, next) {
+dataServer.use(function (req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 });
 
 
-server.get('/', function (req, res) {
-	res.sendFile("index.html"); //, function (err, data) {
-	//res.write(data);
-	//res.end();
-	//});
+dataServer.get('/', function (req, res) {
+	res.sendFile("index.html");
 });
 
 
 
 
-server.listen(3030, function () {
-	console.log('Server listening on port 3030!');
+dataServer.listen(3030, function () {
+	console.log('Data Server listening on port 3030!');
 });
 
 
@@ -346,7 +343,7 @@ server.listen(3030, function () {
 
 
 // must be at last
-server.use(function (req, res, next) {
+dataServer.use(function (req, res, next) {
 	fs.readFile("www/index.html", function (err, data) {
 		res.status(404).write(data);
 		res.end();
