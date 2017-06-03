@@ -231,6 +231,33 @@ app.get('/notifications', function (req, res) {
 
 
 
+app.get('/attendance', function (req, res) {
+	usernamme = req.query.username;
+	//  type can be "departmantal" or "general"
+
+	//console.log(type);
+	userpath = "data/users/" + users[username].type + "/" + username + "/";
+	//console.log(userpath);
+	attendancepath = userpath + "attendance.json";
+	//console.log(profilepath);
+	fs.readFile(attendancepath, function (err1, attendancedata) {
+		//console.log(profiledata);
+
+		attendance = JSON.parse(attendancedata);
+
+		//console.log(profile);
+		res.send(attendance);
+		console.log("Attendance of " + username + " sent.");
+
+
+	});
+
+
+});
+
+
+
+
 
 
 
