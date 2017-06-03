@@ -75,34 +75,11 @@ app.get('/', function (req, res) {
 
 
 app.get('/login', function (req, res) {
-
-
 	//console.log("request");
 	//console.log(req.query);
-	username = req.query.uname;
+	var username = req.query.uname;
 	//console.log(username);
-	password = req.query.pword;
-
-	/*console.log("returned= " + usermanager.checkUser(username));
-	//console.log(users);
-	//console.log(JSON.parse(data));
-	//console.log(username)
-	/*if (usermanager.checkUser(username)) {
-
-		if (usermanager.checkPassword(username, password)) {
-			res.send("true");
-			//console.log(users[username].password);
-			console.log(username + " logged in.");
-		} else {
-			res.send("false");
-			console.log(username + " entered incorrect password.");
-		}
-
-	} else {
-		res.send("invalid");
-		console.log(username + " does not exist.");
-	}
-*/
+	var password = req.query.pword;
 
 
 	fs.readFile("data/users/users.json", function (err, data) {
@@ -126,12 +103,7 @@ app.get('/login', function (req, res) {
 			res.send("invalid");
 			console.log(username + " does not exist.");
 		}
-
 	});
-
-
-
-
 });
 
 
@@ -140,7 +112,7 @@ app.get('/login', function (req, res) {
 app.get('/userdata', function (req, res) {
 	//console.log("request");
 	//console.log(req.query);
-	username = req.query.username;
+	var username = req.query.username;
 	//console.log(username);
 
 	fs.readFile(config.userlist, function (err0, userdata) {
@@ -184,7 +156,7 @@ app.get('/userdata', function (req, res) {
 app.get('/username-name', function (req, res) {
 	//console.log("request");
 	//console.log(req.query);
-	username = req.query.user;
+	var username = req.query.user;
 	//console.log(username);
 	fs.readFile("data/users/users.json", function (err0, userdata) {
 		users = JSON.parse(userdata);
@@ -214,8 +186,9 @@ app.get('/username-name', function (req, res) {
 
 
 app.get('/notifications', function (req, res) {
-	type = req.query.type;
+	var type = req.query.type;
 	//  type can be "departmantal" or "general"
+
 
 	//console.log(type);
 	fs.readFile("data/notifications/" + type + ".json", function (err0, notificationdata) {
@@ -232,27 +205,53 @@ app.get('/notifications', function (req, res) {
 
 
 app.get('/attendance', function (req, res) {
-	usernamme = req.query.username;
+	var username = req.query.username;
 	//  type can be "departmantal" or "general"
+	fs.readFile("data/users/users.json", function (err0, userdata) {
+		users = JSON.parse(userdata);
+		//console.log(type);
+		userpath = "data/users/" + users[username].type + "/" + username + "/";
+		//console.log(userpath);
+		attendancepath = userpath + "attendance.json";
+		//console.log(profilepath);
+		fs.readFile(attendancepath, function (err1, attendancedata) {
+			//console.log(profiledata);
 
-	//console.log(type);
-	userpath = "data/users/" + users[username].type + "/" + username + "/";
-	//console.log(userpath);
-	attendancepath = userpath + "attendance.json";
-	//console.log(profilepath);
-	fs.readFile(attendancepath, function (err1, attendancedata) {
-		//console.log(profiledata);
+			attendance = JSON.parse(attendancedata);
 
-		attendance = JSON.parse(attendancedata);
-
-		//console.log(profile);
-		res.send(attendance);
-		console.log("Attendance of " + username + " sent.");
+			//console.log(profile);
+			res.send(attendance);
+			console.log("Attendance of " + username + " sent.");
 
 
+		});
 	});
 
+});
 
+app.get('/academics', function (req, res) {
+	var username = req.query.username;
+	//  type can be "departmantal" or "general"
+	fs.readFile("data/users/users.json", function (err0, userdata) {
+		users = JSON.parse(userdata);
+		//console.log(type);
+		userpath = "data/users/" + users[username].type + "/" + username + "/";
+		//console.log(userpath);
+		academicspath = userpath + "academics.json";
+		//console.log(profilepath);
+		fs.readFile(academicspath, function (err1, academicsdata) {
+			//console.log(profiledata);
+
+			academics = JSON.parse(academicsdata);
+
+			//console.log(profile);
+			res.send(academics);
+			console.log("Academics of " + username + " sent.");
+
+
+		});
+
+	});
 });
 
 
