@@ -348,3 +348,63 @@ dataServer.use(function (req, res, next) {
 		res.end();
 	});
 });
+
+
+
+
+
+
+/****************************
+ *                          *
+ *      PAPER SERVER        ****************************************************
+ *                          *
+ ****************************
+
+
+ * This part is used for serving the exam paper pdfs.
+ *
+ *
+ * This part merged in app.js as it will  be easier to run multiple ports in same process in dataServer like openshift http://www.openshift.com
+ *
+ *
+
+
+const paperServer = express();
+
+
+
+paperServer.use(express.static('www/exampapers'))
+//app.use('/data', express.static('data'))
+
+paperServer.use(function (req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+});
+
+
+paperServer.get('/', function (req, res) {
+	res.sendFile("index.html");
+});
+
+
+
+
+paperServer.listen(3040, function () {
+	console.log('Paper Server listening on port 3040!');
+});
+
+
+
+
+
+
+/*
+// must be at last
+paperServer.use(function (req, res, next) {
+	fs.readFile("www/index.html", function (err, data) {
+		res.status(404).write(data);
+		res.end();
+	});
+});
+*/
