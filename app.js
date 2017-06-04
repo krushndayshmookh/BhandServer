@@ -366,14 +366,15 @@ dataServer.use(function (req, res, next) {
  *
  * This part merged in app.js as it will  be easier to run multiple ports in same process in dataServer like openshift http://www.openshift.com
  *
- *
+ */
 
 
 const paperServer = express();
 
 
 
-paperServer.use(express.static('www/exampapers'))
+paperServer.use(express.static('www/exampapers'));
+paperServer.use(express.static('data/exam'));
 //app.use('/data', express.static('data'))
 
 paperServer.use(function (req, res, next) {
@@ -383,10 +384,47 @@ paperServer.use(function (req, res, next) {
 });
 
 
-paperServer.get('/', function (req, res) {
-	res.sendFile("index.html");
-});
+//paperServer.get('/', function (req, res) {
+//	res.sendFile("index.html");
+//});
 
+
+paperServer.get('/papers', function (req, res) {
+	//console.log("request");
+	//console.log(req.query);
+	var requestpath = req.query.path;
+	var path = "data/exam" + requestpath;
+
+	var sendableObject = {
+		"path": requestpath,
+		"dirs": [],
+		"files": []
+	};
+
+	//console.log(username);
+
+
+
+	fs.readdir(path, function (err, pathcontents) {
+		//console.log(pathcontents);
+		for (item in pathcontents) {
+			//console.log(pathcontents[item]);
+			if (fs.statSync(path + "/" + pathcontents[item]).isDirectory()) {
+
+				sendableObject.dirs.push(pathcontents[item]);
+
+				//console.log(sendableObject);
+			} else {
+				sendableObject.files.push(pathcontents[item]);
+				//console.log(sendableObject);
+			}
+
+		}
+		//console.log(sendableObject);
+		res.send(sendableObject);
+	});
+
+});
 
 
 
