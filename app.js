@@ -30,7 +30,10 @@ var config = require('./config');
 //var usermanager = require('./scripts/usermanager');
 
 
-
+var ipaddress = config.ipaddress;
+var appport = config.appport;
+var dataport = config.dataport;
+var paperport = config.paperport;
 
 
 
@@ -83,7 +86,7 @@ app.get('/login', function (req, res) {
 
 
 	fs.readFile("data/users/users.json", function (err, data) {
-		users = JSON.parse(data);
+		var users = JSON.parse(data);
 
 		//console.log(users);
 		//console.log(JSON.parse(data));
@@ -116,7 +119,7 @@ app.get('/userdata', function (req, res) {
 	//console.log(username);
 
 	fs.readFile(config.userlist, function (err0, userdata) {
-		users = JSON.parse(userdata);
+		var users = JSON.parse(userdata);
 
 		//console.log(users);
 		//console.log(JSON.parse(data));
@@ -124,14 +127,14 @@ app.get('/userdata', function (req, res) {
 		//console.log(users[username].type);
 		if (username in users) {
 			//console.log(users[username].type);
-			userpath = "data/users/" + users[username].type + "/" + username + "/";
+			var userpath = "data/users/" + users[username].type + "/" + username + "/";
 			//console.log(userpath);
-			profilepath = userpath + "profile.json";
+			var profilepath = userpath + "profile.json";
 			//console.log(profilepath);
 			fs.readFile(profilepath, function (err1, profiledata) {
 				//console.log(profiledata);
 
-				profile = JSON.parse(profiledata);
+				var profile = JSON.parse(profiledata);
 
 				//console.log(profile);
 				res.send(profile);
@@ -159,22 +162,22 @@ app.get('/username-name', function (req, res) {
 	var username = req.query.user;
 	//console.log(username);
 	fs.readFile("data/users/users.json", function (err0, userdata) {
-		users = JSON.parse(userdata);
+		var users = JSON.parse(userdata);
 		//console.log(users);
 		//console.log(JSON.parse(data));
 		//console.log(username);
 		//console.log(users[username].type);
 		if (username in users) {
 			//console.log(users[username].type);
-			userpath = "data/users/" + users[username].type + "/" + username + "/";
+			var userpath = "data/users/" + users[username].type + "/" + username + "/";
 			//console.log(userpath);
-			profilepath = userpath + "profile.json";
+			var profilepath = userpath + "profile.json";
 			//console.log(profilepath);
 			fs.readFile(profilepath, function (err1, profiledata) {
 				//console.log(profiledata);
-				profile = JSON.parse(profiledata);
+				var profile = JSON.parse(profiledata);
 				//console.log(profile);
-				res.send(profile["Name"]);
+				res.send(profile.Name);
 				console.log("Name of " + username + " sent.");
 			});
 		}
@@ -192,10 +195,10 @@ app.get('/notifications', function (req, res) {
 
 	//console.log(type);
 	fs.readFile("data/notifications/" + type + ".json", function (err0, notificationdata) {
-		notifications = JSON.parse(notificationdata);
+		var notifications = JSON.parse(notificationdata);
 		//console.log(notifications);
 		res.send(notifications);
-		console.log(type + " notifications sent.")
+		console.log(type + " notifications sent.");
 	});
 
 });
@@ -208,16 +211,16 @@ app.get('/attendance', function (req, res) {
 	var username = req.query.username;
 	//  type can be "departmantal" or "general"
 	fs.readFile("data/users/users.json", function (err0, userdata) {
-		users = JSON.parse(userdata);
+		var users = JSON.parse(userdata);
 		//console.log(type);
-		userpath = "data/users/" + users[username].type + "/" + username + "/";
+		var userpath = "data/users/" + users[username].type + "/" + username + "/";
 		//console.log(userpath);
-		attendancepath = userpath + "attendance.json";
+		var attendancepath = userpath + "attendance.json";
 		//console.log(profilepath);
 		fs.readFile(attendancepath, function (err1, attendancedata) {
 			//console.log(profiledata);
 
-			attendance = JSON.parse(attendancedata);
+			var attendance = JSON.parse(attendancedata);
 
 			//console.log(profile);
 			res.send(attendance);
@@ -233,16 +236,16 @@ app.get('/academics', function (req, res) {
 	var username = req.query.username;
 	//  type can be "departmantal" or "general"
 	fs.readFile("data/users/users.json", function (err0, userdata) {
-		users = JSON.parse(userdata);
+		var users = JSON.parse(userdata);
 		//console.log(type);
-		userpath = "data/users/" + users[username].type + "/" + username + "/";
+		var userpath = "data/users/" + users[username].type + "/" + username + "/";
 		//console.log(userpath);
-		academicspath = userpath + "academics.json";
+		var academicspath = userpath + "academics.json";
 		//console.log(profilepath);
 		fs.readFile(academicspath, function (err1, academicsdata) {
 			//console.log(profiledata);
 
-			academics = JSON.parse(academicsdata);
+			var academics = JSON.parse(academicsdata);
 
 			//console.log(profile);
 			res.send(academics);
@@ -266,8 +269,11 @@ app.get('/academics', function (req, res) {
 	res.sendFile("/files/BA.apk");
 	console.log("app sent")
 });*/
-app.listen(3000, function () {
-	console.log('App listening on port 3000!');
+
+
+
+app.listen(appport,ipaddress, function () {
+	console.log('App listening on port 3000 on '+ipaddress+' !');
 });
 
 
@@ -314,7 +320,7 @@ const dataServer = express();
 
 
 
-dataServer.use(express.static('www'))
+dataServer.use(express.static('www'));
 //app.use('/data', express.static('data'))
 
 dataServer.use(function (req, res, next) {
@@ -331,8 +337,8 @@ dataServer.get('/', function (req, res) {
 
 
 
-dataServer.listen(3030, function () {
-	console.log('Data Server listening on port 3030!');
+dataServer.listen(dataport,ipaddress, function () {
+	console.log('Data Server listening on port 3030 on '+ipaddress+' !');
 });
 
 
@@ -428,8 +434,8 @@ paperServer.get('/papers', function (req, res) {
 
 
 
-paperServer.listen(3040, function () {
-	console.log('Paper Server listening on port 3040!');
+paperServer.listen(paperport,ipaddress, function () {
+	console.log('Paper Server listening on port 3040 on '+ipaddress+' !');
 });
 
 
