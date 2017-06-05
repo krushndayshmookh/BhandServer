@@ -66,15 +66,16 @@ app.use(function (req, res, next) {
 	next();
 });
 
-app.get('/', function (req, res) {
+/*app.get('/', function (req, res) {
 	fs.readFile("www/index.html", function (err, data) {
 		/*res.writeHead(200, {
 			'Content-Type': 'text/html'
-		});*/
+		});*
 		res.write(data);
 		res.end();
 	});
 });
+*/
 
 
 app.get('/login', function (req, res) {
@@ -284,7 +285,7 @@ app.listen(appport,ipaddress, function () {
 
 // must be at last
 app.use(function (req, res, next) {
-	fs.readFile("www/index.html", function (err, data) {
+	fs.readFile("www/error.html", function (err, data) {
 		res.status(404).write(data);
 		res.end();
 	});
@@ -330,9 +331,9 @@ dataServer.use(function (req, res, next) {
 });
 
 
-dataServer.get('/', function (req, res) {
-	res.sendFile("index.html");
-});
+//dataServer.get('/', function (req, res) {
+//	res.sendFile("index.html");
+//});
 
 
 
@@ -349,10 +350,11 @@ dataServer.listen(dataport,ipaddress, function () {
 
 // must be at last
 dataServer.use(function (req, res, next) {
-	fs.readFile("www/index.html", function (err, data) {
+	fs.readFile("www/error.html", function (err, data) {
 		res.status(404).write(data);
 		res.end();
 	});
+    //res.status(404).sendFile("error.html");
 });
 
 
@@ -443,12 +445,12 @@ paperServer.listen(paperport,ipaddress, function () {
 
 
 
-/*
+
 // must be at last
 paperServer.use(function (req, res, next) {
-	fs.readFile("www/index.html", function (err, data) {
+	fs.readFile("www/error.html", function (err, data) {
 		res.status(404).write(data);
 		res.end();
 	});
 });
-*/
+
