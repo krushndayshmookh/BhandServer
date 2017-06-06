@@ -5,7 +5,7 @@ Server side code for Clavi.
 After cloning the repository,
 
 ~~~shell
-npm install
+$ npm install
 
-node app.js
+$ node app.js
 ~~~
