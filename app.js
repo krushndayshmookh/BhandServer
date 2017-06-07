@@ -275,7 +275,7 @@ app.get('/academics', function (req, res) {
 
 
 app.listen(appport, ipaddress, function () {
-    console.log('App listening on port 3000 on ' + ipaddress + ' !');
+    console.log('App listening at port %d on %s', appport, ipaddress);
 });
 
 
@@ -340,7 +340,7 @@ dataServer.use(function (req, res, next) {
 
 
 dataServer.listen(dataport, ipaddress, function () {
-    console.log('Data Server listening on port 3030 on ' + ipaddress + ' !');
+    console.log('Data Server listening at port %d on %s', dataport, ipaddress);
 });
 
 
@@ -438,7 +438,7 @@ paperServer.get('/papers', function (req, res) {
 
 
 paperServer.listen(paperport, ipaddress, function () {
-    console.log('Paper Server listening on port 3040 on ' + ipaddress + ' !');
+    console.log('Paper Server listening at port %d on %s', paperport, ipaddress);
 });
 
 
@@ -479,8 +479,8 @@ var chat = express();
 var chatserver = require('http').createServer(chat);
 var io = require('socket.io')(chatserver);
 
-chatserver.listen(chatport, function () {
-    console.log('Server listening at port %d', chatport);
+chatserver.listen(chatport, ipaddress, function () {
+    console.log('Chat Server listening at port %d on %s', chatport, ipaddress);
 });
 
 
