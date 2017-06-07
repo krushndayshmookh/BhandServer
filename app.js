@@ -98,15 +98,15 @@ app.get('/login', function (req, res) {
             if (users[username].password == password) {
                 res.send("true");
                 //console.log(users[username].password);
-                console.log(username + " logged in.");
+                //console.log(username + " logged in.");
             } else {
                 res.send("false");
-                console.log(username + " entered incorrect password.");
+                //console.log(username + " entered incorrect password.");
             }
 
         } else {
             res.send("invalid");
-            console.log(username + " does not exist.");
+            //console.log(username + " does not exist.");
         }
     });
 });
@@ -140,7 +140,7 @@ app.get('/userdata', function (req, res) {
 
                 //console.log(profile);
                 res.send(profile);
-                console.log("Profile of " + username + " sent.");
+                //console.log("Profile of " + username + " sent.");
 
 
 
@@ -180,7 +180,7 @@ app.get('/username-name', function (req, res) {
                 var profile = JSON.parse(profiledata);
                 //console.log(profile);
                 res.send(profile.Name);
-                console.log("Name of " + username + " sent.");
+                //console.log("Name of " + username + " sent.");
             });
         }
     });
@@ -200,7 +200,7 @@ app.get('/notifications', function (req, res) {
         var notifications = JSON.parse(notificationdata);
         //console.log(notifications);
         res.send(notifications);
-        console.log(type + " notifications sent.");
+       // console.log(type + " notifications sent.");
     });
 
 });
@@ -226,7 +226,7 @@ app.get('/attendance', function (req, res) {
 
             //console.log(profile);
             res.send(attendance);
-            console.log("Attendance of " + username + " sent.");
+          //  console.log("Attendance of " + username + " sent.");
 
 
         });
@@ -251,7 +251,7 @@ app.get('/academics', function (req, res) {
 
             //console.log(profile);
             res.send(academics);
-            console.log("Academics of " + username + " sent.");
+           // console.log("Academics of " + username + " sent.");
 
 
         });
