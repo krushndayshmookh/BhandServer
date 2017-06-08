@@ -200,7 +200,7 @@ app.get('/notifications', function (req, res) {
         var notifications = JSON.parse(notificationdata);
         //console.log(notifications);
         res.send(notifications);
-       // console.log(type + " notifications sent.");
+        // console.log(type + " notifications sent.");
     });
 
 });
@@ -226,7 +226,7 @@ app.get('/attendance', function (req, res) {
 
             //console.log(profile);
             res.send(attendance);
-          //  console.log("Attendance of " + username + " sent.");
+            //  console.log("Attendance of " + username + " sent.");
 
 
         });
@@ -251,7 +251,7 @@ app.get('/academics', function (req, res) {
 
             //console.log(profile);
             res.send(academics);
-           // console.log("Academics of " + username + " sent.");
+            // console.log("Academics of " + username + " sent.");
 
 
         });
@@ -321,16 +321,17 @@ app.use(function (req, res, next) {
 var dataServer = express();
 
 
-
-dataServer.use(express.static('www'));
-//app.use('/data', express.static('data'))
-
 dataServer.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
+
+
+dataServer.use(express.static('www'));
+
+//app.use('/data', express.static('data'))
 
 //dataServer.get('/', function (req, res) {
 //	res.sendFile("index.html");
@@ -344,7 +345,15 @@ dataServer.listen(dataport, ipaddress, function () {
 });
 
 
+dataServer.get('/rates', function (req, res) {
 
+    fs.readFile("data/canteen/rates.json", function (err, ratedata) {
+        var rates = JSON.parse(ratedata);
+        res.send(rates);
+
+    });
+
+});
 
 
 
@@ -382,15 +391,17 @@ var paperServer = express();
 
 
 
-paperServer.use(express.static('www/exampapers'));
-paperServer.use(express.static('data/exam'));
-//app.use('/data', express.static('data'))
 
 paperServer.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
+
+paperServer.use(express.static('www/exampapers'));
+paperServer.use(express.static('data/exam'));
+//app.use('/data', express.static('data'))
 
 
 //paperServer.get('/', function (req, res) {
