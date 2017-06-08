@@ -2,14 +2,10 @@
   "name": "clavi-server",
   "version": "0.0.0",
   "description": "A Server for Clavi",
-  "main": "app.js",
-  "engines": {
-  "node": "8.0.0"
-  },
-
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
