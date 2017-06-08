@@ -17,6 +17,10 @@
         "strawberry": 25,
         "chocolate": 30
     },
+    "sweets": {
+        "gulab-jamun": 25,
+        "rasmalai": 35
+    },
 
     "hotdrinks": {
         "tea": 10,
