@@ -8,7 +8,10 @@
 		"password": "2016ACSC0108072",
 		"type": "students"
 	},
-
+	"2016ACSC0101067": {
+		"password": "2016ACSC0101067",
+		"type": "students"
+	},
 
 	"sampleteacher": {
 		"password": "sampleteacherpassword",
