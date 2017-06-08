@@ -1,0 +1,25 @@
+{
+    "snacks": {
+        "dosa": 40,
+        "idli": 30,
+        "samosa": 20,
+        "sabudana-vada": 25
+    },
+
+    "colddrinks": {
+        "cocacola": 20,
+        "slice": 20,
+        "limca": 20
+    },
+
+    "icecreams": {
+        "vanilla": 20,
+        "strawberry": 25,
+        "chocolate": 30
+    },
+
+    "hotdrinks": {
+        "tea": 10,
+        "coffee": 15
+    }
+}
