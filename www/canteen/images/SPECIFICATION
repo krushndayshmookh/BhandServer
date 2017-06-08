@@ -1,0 +1,8 @@
+
+* This is image specification for Clavi *
+
+    For food item images in canteen:
+        1. All images should be 800x600 pixels in size.
+        2. They should be placed in subfolder according to the schema:
+            [categoryname]/[itemname].png
+        3. All files must be .png
