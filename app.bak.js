@@ -3,9 +3,6 @@
 /* 
  * Author: Krushn Dayshmookh
  *
- *  THIS FILE HAS BEEN MADE SPECIFICIALLY TO WORK WITH OPENSHIFT.
- *
- *
  */
 
 
@@ -33,10 +30,8 @@ var config = require('./config');
 //var usermanager = require('./scripts/usermanager');
 
 
-var ipaddress = process.env.OPENSHIFT_NODEJS_IP || config.ipaddress;
-var appport = process.env.OPENSHIFT_NODEJS_PORT || config.appport;
-
-/*
+var ipaddress = config.ipaddress;
+var appport = config.appport;
 var dataport = config.dataport;
 var paperport = config.paperport;
 var chatport = config.chatport;
@@ -278,7 +273,7 @@ app.get('/academics', function (req, res) {
 });*/
 
 
-/*
+
 app.listen(appport, ipaddress, function () {
     console.log('App listening at port %d on %s', appport, ipaddress);
 });
@@ -323,34 +318,34 @@ app.use(function (req, res, next) {
  */
 
 
-//var dataServer = express();
+var dataServer = express();
 
-/*
-app.use(function (req, res, next) {
+
+dataServer.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-*/
 
 
-app.use(express.static('www'));
+
+dataServer.use(express.static('www'));
 
 //app.use('/data', express.static('data'))
 
-//app.get('/', function (req, res) {
+//dataServer.get('/', function (req, res) {
 //	res.sendFile("index.html");
 //});
 
 
 
-/*
-app.listen(dataport, ipaddress, function () {
+
+dataServer.listen(dataport, ipaddress, function () {
     console.log('Data Server listening at port %d on %s', dataport, ipaddress);
 });
-*/
 
-app.get('/rates', function (req, res) {
+
+dataServer.get('/rates', function (req, res) {
 
     fs.readFile("data/canteen/rates.json", function (err, ratedata) {
         var rates = JSON.parse(ratedata);
@@ -363,8 +358,8 @@ app.get('/rates', function (req, res) {
 
 
 
-/* / must be at last
-app.use(function (req, res, next) {
+// must be at last
+dataServer.use(function (req, res, next) {
     fs.readFile("www/error.html", function (err, data) {
         res.status(404).write(data);
         res.end();
@@ -387,33 +382,34 @@ app.use(function (req, res, next) {
  * This part is used for serving the exam paper pdfs.
  *
  *
+ * This part merged in app.js as it will  be easier to run multiple ports in same process in dataServer like openshift http://www.openshift.com
  *
  */
 
 
-//var paperServer = express();
+var paperServer = express();
 
 
-/*
 
-app.use(function (req, res, next) {
+
+paperServer.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-*/
 
-app.use(express.static('www/exampapers'));
-app.use(express.static('data/exam'));
+
+paperServer.use(express.static('www/exampapers'));
+paperServer.use(express.static('data/exam'));
 //app.use('/data', express.static('data'))
 
 
-//app.get('/', function (req, res) {
+//paperServer.get('/', function (req, res) {
 //	res.sendFile("index.html");
 //});
 
 
-app.get('/papers', function (req, res) {
+paperServer.get('/papers', function (req, res) {
     //console.log("request");
     //console.log(req.query);
     var requestpath = req.query.path;
@@ -451,19 +447,19 @@ app.get('/papers', function (req, res) {
 });
 
 
-/*
-app.listen(paperport, ipaddress, function () {
+
+paperServer.listen(paperport, ipaddress, function () {
     console.log('Paper Server listening at port %d on %s', paperport, ipaddress);
 });
 
 
 
 
-*
 
 
-/* must be at last
-app.use(function (req, res, next) {
+
+// must be at last
+paperServer.use(function (req, res, next) {
     fs.readFile("www/error.html", function (err, data) {
         res.status(404).write(data);
         res.end();
@@ -490,12 +486,12 @@ app.use(function (req, res, next) {
 
 
 // Setup basic express server
-//var chat = express();
-var appserver = require('http').createServer(app);
-var io = require('socket.io')(appserver);
+var chat = express();
+var chatserver = require('http').createServer(chat);
+var io = require('socket.io')(chatserver);
 
-appserver.listen(appport, ipaddress, function () {
-    console.log('Server listening at port %d on %s', appport, ipaddress);
+chatserver.listen(chatport, ipaddress, function () {
+    console.log('Chat Server listening at port %d on %s', chatport, ipaddress);
 });
 
 
@@ -558,14 +554,5 @@ io.on('connection', function (socket) {
                 numUsers: numUsers
             });
         }
-    });
-});
-
-
-// must be at last
-app.use(function (req, res, next) {
-    fs.readFile("www/error.html", function (err, data) {
-        res.status(404).write(data);
-        res.end();
     });
 });

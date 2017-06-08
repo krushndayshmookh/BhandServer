@@ -3,9 +3,6 @@
 /* 
  * Author: Krushn Dayshmookh
  *
- *  THIS FILE HAS BEEN MADE SPECIFICIALLY TO WORK WITH OPENSHIFT.
- *
- *
  */
 
 
@@ -33,8 +30,8 @@ var config = require('./config');
 //var usermanager = require('./scripts/usermanager');
 
 
-var ipaddress = process.env.OPENSHIFT_NODEJS_IP || config.ipaddress;
-var appport = process.env.OPENSHIFT_NODEJS_PORT || config.appport;
+var ipaddress = config.ipaddress;
+var appport = config.appport;
 
 /*
 var dataport = config.dataport;
