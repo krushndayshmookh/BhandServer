@@ -1,0 +1,22 @@
+{
+    "snacks": [
+        "dosa",
+        "idli",
+        "samosa",
+        "sabudana-vada"
+    ],
+    "colddrinks": [
+        "cocacola",
+        "slice",
+        "limca"
+    ],
+    "icecreams": [
+        "vanilla",
+        "strawberry",
+        "chocolate"
+    ],
+    "hotdrinks": [
+        "tea",
+        "coffee"
+    ]
+}
