@@ -71,7 +71,7 @@ var user = function (uid, uname, type, email, passwd) {
     this.type = type;
     this.email = email;
     this.password = passwd;
-}
+};
 
 
 var MongoClient = require('mongodb').MongoClient;
@@ -327,6 +327,112 @@ app.get('/rates', function (req, res) {
 
 });
 
+app.get('/canteen/order', function (req, res) {
+
+
+    var order = {
+        time: new Date(),
+        item: req.query.item,
+        type: req.query.type,
+        quantity: req.query.quantity,
+        status: "open",
+        username: req.query.username
+    }; // Get canteen orders file and append the request to the file using writefile.
+
+    // that will be done here.
+
+
+
+
+
+
+    // handle for student side.
+
+    MongoClient.connect(url, function (err, db) {
+
+        if (err) throw err;
+
+        console.log("Connected successfully to server");
+
+        var users = db.collection('users');
+
+        users.findOne({
+            id: req.query.username
+        }, function (err1, userdata) {
+            if (err1) throw err1;
+
+            if (userdata != null) {
+
+                var usercanteenpath = "data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
+
+                fs.readFile(usercanteenpath, function (err, orderdata) {
+
+
+
+                    var orders = JSON.parse(orderdata);
+                    //console.log(orders);
+
+                    orders.push(order);
+
+                    fs.writeFile(usercanteenpath, JSON.stringify(orders), "utf8", function (err) {
+                        res.send("success");
+                    });
+
+                });
+
+
+
+
+            } else {
+                res.send("failure");
+                // console.log(username + " does not exist.");
+            }
+
+
+
+
+            db.close();
+        });
+    });
+
+});
+
+
+app.get('/canteen/myorders', function (req, res) {
+
+    var username: req.query.username
+
+    MongoClient.connect(url, function (err, db) {
+
+        if (err) throw err;
+
+        console.log("Connected successfully to server");
+
+        var users = db.collection('users');
+
+        users.findOne({
+            id: req.query.username
+        }, function (err1, userdata) {
+            if (err1) throw err1;
+
+            if (userdata != null) {
+
+                var usercanteenpath = "data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
+
+                fs.readFile(usercanteenpath, function (err, orderdata) {
+                    var orders = JSON.parse(orderdata);
+                    res.send(orders);
+                });
+
+            } else {
+                res.send("failure");
+                // console.log(username + " does not exist.");
+            }
+            db.close();
+        });
+    });
+
+});
 
 
 
@@ -367,7 +473,7 @@ app.get('/papers', function (req, res) {
 
     fs.readdir(path, function (err, pathcontents) {
 
-        for (item in pathcontents) {
+        for (var item in pathcontents) {
 
             if (fs.statSync(path + "/" + pathcontents[item]).isDirectory()) {
 
