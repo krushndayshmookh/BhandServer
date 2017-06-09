@@ -400,7 +400,7 @@ app.get('/canteen/order', function (req, res) {
 
 app.get('/canteen/myorders', function (req, res) {
 
-    var username: req.query.username
+    var username = req.query.username;
 
     MongoClient.connect(url, function (err, db) {
 
