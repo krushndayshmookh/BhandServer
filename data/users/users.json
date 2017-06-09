@@ -1,28 +1,29 @@
 {
-	"samplestudent": {
-		"password": "samplestudentpassword",
-		"type": "students"
-	},
+    "samplestudent": {
+        "password": "samplestudentpassword",
+        "type": "students"
+    },
 
-	"2016ACSC0108072": {
-		"password": "2016ACSC0108072",
-		"type": "students"
-	},
-	"2016ACSC0101067": {
-		"password": "2016ACSC0101067",
-		"type": "students"
-	},
+    "2016ACSC0108072": {
+        "password": "2016ACSC0108072",
+        "type": "students"
+    },
 
-	"sampleteacher": {
-		"password": "sampleteacherpassword",
-		"type": "teachers"
-	},
+    "2016ACSC0101067": {
+        "password": "2016ACSC0101067",
+        "type": "students"
+    },
+
+    "sampleteacher": {
+        "password": "sampleteacherpassword",
+        "type": "teachers"
+    },
 
 
-	"octocat": {
-		"password": "octocatpassword",
-		"type": "admins"
-	}
+    "octocat": {
+        "password": "octocatpassword",
+        "type": "admins"
+    }
 
 
 }
