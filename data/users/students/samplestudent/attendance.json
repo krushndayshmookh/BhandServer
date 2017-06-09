@@ -1,8 +1,8 @@
 {
-	"subject1": 80,
-	"subject2": 60,
-	"subject3": 50,
-	"subject4": 99,
-	"subject5": 30,
-	"subject6": 75
+	"Physics": 80,
+	"Mathematics": 60,
+	"Engineering Mechanics": 50,
+	"Basics of Computing": 99,
+	"Engineering Graphics": 30,
+	"Ethics and Professional Competency": 75
 }
