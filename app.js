@@ -103,7 +103,7 @@ app.get('/login', function (req, res) {
 
         if (err) throw err;
 
-        console.log("Connected successfully to server");
+        //console.log("Connected successfully to server");
 
         var users = db.collection('users');
 
@@ -352,7 +352,7 @@ app.get('/canteen/order', function (req, res) {
 
         if (err) throw err;
 
-        console.log("Connected successfully to server");
+        //console.log("Connected successfully to server");
 
         var users = db.collection('users');
 
@@ -406,7 +406,7 @@ app.get('/canteen/myorders', function (req, res) {
 
         if (err) throw err;
 
-        console.log("Connected successfully to server");
+        //console.log("Connected successfully to server");
 
         var users = db.collection('users');
 
