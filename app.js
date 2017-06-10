@@ -188,29 +188,38 @@ app.get('/userdata', function (req, res) {
 
     var username = req.query.username;
 
+    MongoClient.connect(url, function (err, db) {
 
-    fs.readFile(config.userlist, function (err0, userdata) {
-        var users = JSON.parse(userdata);
+        if (err) throw err;
+
+        //console.log("Connected successfully to server");
+
+        var users = db.collection('users');
+
+        users.findOne({
+            id: username
+        }, function (err1, data) {
+            if (err1) throw err1;
+
+            if (data != null) {
+                var userpath = "data/users/" + data.type + "/" + username + "/";
+
+                var profilepath = userpath + "profile.json";
+                fs.readFile(profilepath, function (err2, profiledata) {
+
+                    var profile = JSON.parse(profiledata);
+
+                    res.send(profile);
+                    //console.log("Profile of " + username + " sent.");
+                });
 
 
-        if (username in users) {
+            }
 
-            var userpath = "data/users/" + users[username].type + "/" + username + "/";
-
-            var profilepath = userpath + "profile.json";
-
-            fs.readFile(profilepath, function (err1, profiledata) {
-
-
-                var profile = JSON.parse(profiledata);
-
-
-                res.send(profile);
-                //console.log("Profile of " + username + " sent.");
-            });
-
-        }
+            db.close();
+        });
     });
+
 
 });
 
