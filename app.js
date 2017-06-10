@@ -202,10 +202,10 @@ app.get('/userdata', function (req, res) {
             if (err1) throw err1;
 
             if (data != null) {
-                var userpath = "data/users/" + data.type + "/" + username + "/";
+                var userpath = "/data/users/" + data.type + "/" + username + "/";
 
                 var profilepath = userpath + "profile.json";
-                fs.readFile(profilepath, function (err2, profiledata) {
+                fs.readFile(__dirname + profilepath, function (err2, profiledata) {
 
                     var profile = JSON.parse(profiledata);
 
@@ -232,7 +232,7 @@ app.get('/notifications', function (req, res) {
 
 
 
-    fs.readFile("data/notifications/" + type + ".json", function (err0, notificationdata) {
+    fs.readFile(__dirname + "/data/notifications/" + type + ".json", function (err0, notificationdata) {
         var notifications = JSON.parse(notificationdata);
 
         res.send(notifications);
@@ -248,22 +248,35 @@ app.get('/notifications', function (req, res) {
 app.get('/attendance', function (req, res) {
     var username = req.query.username;
 
-    fs.readFile("data/users/users.json", function (err0, userdata) {
-        var users = JSON.parse(userdata);
+    MongoClient.connect(url, function (err, db) {
 
-        var userpath = "data/users/" + users[username].type + "/" + username + "/";
+        if (err) throw err;
 
-        var attendancepath = userpath + "attendance.json";
+        //console.log("Connected successfully to server");
 
-        fs.readFile(attendancepath, function (err1, attendancedata) {
+        var users = db.collection('users');
 
+        users.findOne({
+            id: username
+        }, function (err1, data) {
+            if (err1) throw err1;
 
-            var attendance = JSON.parse(attendancedata);
+            if (data != null) {
+                var userpath = "/data/users/" + data.type + "/" + username + "/";
 
-            res.send(attendance);
-            //  console.log("Attendance of " + username + " sent.");
+                var attendancepath = userpath + "attendance.json";
 
+                fs.readFile(__dirname + attendancepath, function (err1, attendancedata) {
 
+                    var attendance = JSON.parse(attendancedata);
+
+                    res.send(attendance);
+                    //  console.log("Attendance of " + username + " sent.");
+                });
+
+            }
+
+            db.close();
         });
     });
 
@@ -272,25 +285,44 @@ app.get('/attendance', function (req, res) {
 app.get('/academics', function (req, res) {
     var username = req.query.username;
 
-    fs.readFile("data/users/users.json", function (err0, userdata) {
-        var users = JSON.parse(userdata);
-
-        var userpath = "data/users/" + users[username].type + "/" + username + "/";
-
-        var academicspath = userpath + "academics.json";
-
-        fs.readFile(academicspath, function (err1, academicsdata) {
 
 
-            var academics = JSON.parse(academicsdata);
+    MongoClient.connect(url, function (err, db) {
 
-            res.send(academics);
-            // console.log("Academics of " + username + " sent.");
+        if (err) throw err;
+
+        //console.log("Connected successfully to server");
+
+        var users = db.collection('users');
+
+        users.findOne({
+            id: username
+        }, function (err1, data) {
+            if (err1) throw err1;
+
+            if (data != null) {
+                var userpath = "/data/users/" + data.type + "/" + username + "/";
+
+                var academicspath = userpath + "academics.json";
+
+                fs.readFile(__dirname + academicspath, function (err1, academicsdata) {
+
+                    var academics = JSON.parse(academicsdata);
+
+                    res.send(academics);
+                    // console.log("Academics of " + username + " sent.");
 
 
+                });
+
+
+            }
+
+            db.close();
         });
-
     });
+
+
 });
 
 
@@ -320,12 +352,12 @@ app.get('/academics', function (req, res) {
 
 
 
-app.use(express.static('www'));
+app.use(express.static(__dirname + '/www'));
 
 
 app.get('/rates', function (req, res) {
 
-    fs.readFile("data/canteen/rates.json", function (err, ratedata) {
+    fs.readFile(__dirname + "/data/canteen/rates.json", function (err, ratedata) {
         var rates = JSON.parse(ratedata);
         res.send(rates);
 
@@ -375,9 +407,9 @@ app.get('/canteen/order', function (req, res) {
 
                     order.rate = rates[order.category][order.item];
 
-                    var usercanteenpath = "data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
+                    var usercanteenpath = "/data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
 
-                    fs.readFile(usercanteenpath, function (err, orderdata) {
+                    fs.readFile(__dirname + usercanteenpath, function (err, orderdata) {
 
 
 
@@ -386,7 +418,7 @@ app.get('/canteen/order', function (req, res) {
 
                         orders.push(order);
 
-                        fs.writeFile(usercanteenpath, JSON.stringify(orders), "utf8", function (err) {
+                        fs.writeFile(__dirname + usercanteenpath, JSON.stringify(orders), "utf8", function (err) {
                             res.send("success");
                         });
 
@@ -429,9 +461,9 @@ app.get('/canteen/myorders', function (req, res) {
 
             if (userdata != null) {
 
-                var usercanteenpath = "data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
+                var usercanteenpath = "/data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
 
-                fs.readFile(usercanteenpath, function (err, orderdata) {
+                fs.readFile(__dirname + usercanteenpath, function (err, orderdata) {
                     var orders = JSON.parse(orderdata);
                     res.send(orders);
                 });
@@ -465,9 +497,9 @@ app.get('/canteen/myorders/clear', function (req, res) {
 
             if (userdata != null) {
 
-                var usercanteenpath = "data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
+                var usercanteenpath = "/data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
 
-                fs.writeFile(usercanteenpath, "[]", "utf8", function (err) {
+                fs.writeFile(__dirname + usercanteenpath, "[]", "utf8", function (err) {
 
                     res.send("success");
                 });
@@ -501,15 +533,15 @@ app.get('/canteen/myorders/clear', function (req, res) {
 
 
 
-app.use(express.static('www/exampapers'));
-app.use(express.static('data/exam'));
+app.use(express.static(__dirname + '/www/exampapers'));
+app.use(express.static(__dirname + '/data/exam'));
 
 
 
 app.get('/papers', function (req, res) {
 
     var requestpath = req.query.path;
-    var path = "data/exam" + requestpath;
+    var path = "/data/exam" + requestpath;
 
     var sendableObject = {
         "path": requestpath,
@@ -519,11 +551,11 @@ app.get('/papers', function (req, res) {
 
 
 
-    fs.readdir(path, function (err, pathcontents) {
+    fs.readdir(__dirname + path, function (err, pathcontents) {
 
         for (var item in pathcontents) {
 
-            if (fs.statSync(path + "/" + pathcontents[item]).isDirectory()) {
+            if (fs.statSync(__dirname + path + "/" + pathcontents[item]).isDirectory()) {
 
                 sendableObject.dirs.push(pathcontents[item]);
 
@@ -632,7 +664,7 @@ io.on('connection', function (socket) {
 
 // must be at last
 app.use(function (req, res, next) {
-    fs.readFile("www/error.html", function (err, data) {
+    fs.readFile(__dirname + "/www/error.html", function (err, data) {
         res.status(404).write(data);
         res.end();
     });
