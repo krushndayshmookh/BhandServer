@@ -26,8 +26,6 @@
 
 const express = require('express');
 const fs = require('fs');
-const touch = require('touch');
-//const mongoose = require('mongoose');
 
 var config = require('./config');
 
@@ -65,7 +63,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-
+/*   --- this is user prototype that is saved in database
 var user = function (uid, uname, type, email, passwd) {
     this.uid = uid;
     this.name = uname;
@@ -73,7 +71,7 @@ var user = function (uid, uname, type, email, passwd) {
     this.email = email;
     this.password = passwd;
 };
-
+*/
 
 var MongoClient = require('mongodb').MongoClient;
 
@@ -114,9 +112,9 @@ app.get('/login', function (req, res) {
             if (err1) throw err1;
 
             if (data != null) {
-                //;
+
                 if (data.password == password) {
-                    res.send("true");
+                    res.send(data);
 
                     //console.log(username + " logged in.");
                 } else {
@@ -211,31 +209,6 @@ app.get('/userdata', function (req, res) {
                 //console.log("Profile of " + username + " sent.");
             });
 
-        }
-    });
-
-});
-
-app.get('/username-name', function (req, res) {
-
-    var username = req.query.user;
-
-    fs.readFile("data/users/users.json", function (err0, userdata) {
-        var users = JSON.parse(userdata);
-
-        if (username in users) {
-
-            var userpath = "data/users/" + users[username].type + "/" + username + "/";
-
-            var profilepath = userpath + "profile.json";
-
-            fs.readFile(profilepath, function (err1, profiledata) {
-
-                var profile = JSON.parse(profiledata);
-
-                res.send(profile.Name);
-                //console.log("Name of " + username + " sent.");
-            });
         }
     });
 
