@@ -1,1 +1,1 @@
-[{"time":"2017-06-09T14:44:00.090Z","item":"gulab-jamun","quantity":"1","status":"open","username":"samplestudent"}]
+[{"time":"2017-06-10T03:35:46.582Z","item":"gulab-jamun","category":"sweets","quantity":"2","status":"open","username":"samplestudent","rate":25},{"time":"2017-06-10T03:35:59.271Z","item":"samosa","category":"snacks","quantity":"4","status":"closed","username":"samplestudent","rate":20}]
