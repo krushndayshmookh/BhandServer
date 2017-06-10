@@ -333,14 +333,13 @@ app.get('/canteen/order', function (req, res) {
     var order = {
         time: new Date(),
         item: req.query.item,
-        type: req.query.type,
+        category: req.query.category,
         quantity: req.query.quantity,
         status: "open",
         username: req.query.username
     }; // Get canteen orders file and append the request to the file using writefile.
 
     // that will be done here.
-
 
 
 
@@ -363,24 +362,31 @@ app.get('/canteen/order', function (req, res) {
 
             if (userdata != null) {
 
-                var usercanteenpath = "data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
 
-                fs.readFile(usercanteenpath, function (err, orderdata) {
+                fs.readFile(__dirname + "/data/canteen/rates.json", function (err, ratedata) {
+
+                    var rates = JSON.parse(ratedata);
+
+                    order.rate = rates[order.category][order.item];
+
+                    var usercanteenpath = "data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
+
+                    fs.readFile(usercanteenpath, function (err, orderdata) {
 
 
 
-                    var orders = JSON.parse(orderdata);
-                    //console.log(orders);
+                        var orders = JSON.parse(orderdata);
+                        //console.log(orders);
 
-                    orders.push(order);
+                        orders.push(order);
 
-                    fs.writeFile(usercanteenpath, JSON.stringify(orders), "utf8", function (err) {
-                        res.send("success");
+                        fs.writeFile(usercanteenpath, JSON.stringify(orders), "utf8", function (err) {
+                            res.send("success");
+                        });
+
                     });
 
                 });
-
-
 
 
             } else {
@@ -422,6 +428,42 @@ app.get('/canteen/myorders', function (req, res) {
                 fs.readFile(usercanteenpath, function (err, orderdata) {
                     var orders = JSON.parse(orderdata);
                     res.send(orders);
+                });
+
+            } else {
+                res.send("failure");
+                // console.log(username + " does not exist.");
+            }
+            db.close();
+        });
+    });
+
+});
+
+app.get('/canteen/myorders/clear', function (req, res) {
+
+    var username = req.query.username;
+
+    MongoClient.connect(url, function (err, db) {
+
+        if (err) throw err;
+
+        //console.log("Connected successfully to server");
+
+        var users = db.collection('users');
+
+        users.findOne({
+            id: req.query.username
+        }, function (err1, userdata) {
+            if (err1) throw err1;
+
+            if (userdata != null) {
+
+                var usercanteenpath = "data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
+
+                fs.writeFile(usercanteenpath, "[]", "utf8", function (err) {
+
+                    res.send("success");
                 });
 
             } else {
