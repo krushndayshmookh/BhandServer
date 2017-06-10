@@ -26,6 +26,7 @@
 
 const express = require('express');
 const fs = require('fs');
+const touch = require('touch');
 //const mongoose = require('mongoose');
 
 var config = require('./config');
@@ -135,29 +136,52 @@ app.get('/login', function (req, res) {
         });
     });
 
-    /*
-        fs.readFile("data/users/users.json", function (err, data) {
-            var users = JSON.parse(data);
-
-            if (username in users) {
-                //;
-                if (users[username].password == password) {
-                    res.send("true");
-
-                    //console.log(username + " logged in.");
-                } else {
-                    res.send("false");
-                    //console.log(username + " entered incorrect password.");
-                }
-
-            } else {
-                res.send("invalid");
-                //console.log(username + " does not exist.");
-            }
-        });
-    */
 
 });
+
+app.get('/passwordreset', function (req, res) {
+
+
+
+    MongoClient.connect(url, function (err, db) {
+
+        if (err) throw err;
+
+        //console.log("Connected successfully to server");
+
+        var users = db.collection('users');
+
+        users.findOne({
+            email: req.query.email
+        }, function (err1, data) {
+            if (err1) throw err1;
+
+            if (data != null) {
+
+                fs.readFile(__dirname + "/data/users/forgotpassword.json", function (err, absentmindeduserslist) {
+
+                    var absentmindedusers = JSON.parse(absentmindeduserslist);
+
+
+                    absentmindedusers.push(data);
+
+                    fs.writeFile(__dirname + "/data/users/forgotpassword.json", JSON.stringify(absentmindedusers), "utf8", function (err) {
+                        if (err) throw 'error writing file: ' + err;
+                        res.send("success");
+                    });
+
+                });
+            } else {
+                res.send("failure");
+                //console.log(username + " does not exist.");
+            }
+            db.close();
+        });
+    });
+
+
+});
+
 
 
 
