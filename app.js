@@ -26,6 +26,7 @@
 
 const express = require('express');
 const fs = require('fs');
+const bodyParser = require('body-parser');
 
 var config = require('./config');
 
@@ -85,18 +86,22 @@ var url = mongolaburi;
 // Use connect method to connect to the server
 
 
+// https://scotch.io/tutorials/use-expressjs-to-get-url-and-post-parameters
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({
+    extended: true
+})); // support encoded bodies
 
 
 
 
 
+app.post('/login', function (req, res) {
+    //console.log(req.body);
 
+    var username = req.body.uname;
 
-app.get('/login', function (req, res) {
-
-    var username = req.query.uname;
-
-    var password = req.query.pword;
+    var password = req.body.pword;
 
     MongoClient.connect(url, function (err, db) {
 
@@ -126,10 +131,6 @@ app.get('/login', function (req, res) {
                 res.send("invalid");
                 //console.log(username + " does not exist.");
             }
-
-
-
-
             db.close();
         });
     });
@@ -137,7 +138,7 @@ app.get('/login', function (req, res) {
 
 });
 
-app.get('/passwordreset', function (req, res) {
+app.post('/passwordreset', function (req, res) {
 
 
 
@@ -150,7 +151,7 @@ app.get('/passwordreset', function (req, res) {
         var users = db.collection('users');
 
         users.findOne({
-            email: req.query.email
+            email: req.body.email
         }, function (err1, data) {
             if (err1) throw err1;
 
