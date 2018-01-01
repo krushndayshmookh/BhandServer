@@ -28,7 +28,7 @@ const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 
-var config = require('./config');
+//var config = require('./config');
 
 
 
@@ -105,7 +105,9 @@ app.post('/login', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
 
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
 
         //console.log("Connected successfully to server");
 
@@ -114,9 +116,11 @@ app.post('/login', function (req, res) {
         users.findOne({
             id: username
         }, function (err1, data) {
-            if (err1) throw err1;
+            if (err1) {
+                throw err1;
+            }
 
-            if (data != null) {
+            if (data !== null) {
 
                 if (data.password == password) {
                     res.send(data);
@@ -144,7 +148,9 @@ app.post('/passwordreset', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
 
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
 
         //console.log("Connected successfully to server");
 
@@ -153,19 +159,22 @@ app.post('/passwordreset', function (req, res) {
         users.findOne({
             email: req.body.email
         }, function (err1, data) {
-            if (err1) throw err1;
+            if (err1) {
+                throw err1;
+            }
 
-            if (data != null) {
+            if (data !== null) {
 
                 fs.readFile(__dirname + "/data/users/forgotpassword.json", function (err, absentmindeduserslist) {
 
                     var absentmindedusers = JSON.parse(absentmindeduserslist);
 
-
                     absentmindedusers.push(data);
 
                     fs.writeFile(__dirname + "/data/users/forgotpassword.json", JSON.stringify(absentmindedusers), "utf8", function (err) {
-                        if (err) throw 'error writing file: ' + err;
+                        if (err) {
+                            throw 'error writing file: ' + err;
+                        }
                         res.send("success");
                     });
 
@@ -191,7 +200,9 @@ app.get('/userdata', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
 
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
 
         //console.log("Connected successfully to server");
 
@@ -200,9 +211,11 @@ app.get('/userdata', function (req, res) {
         users.findOne({
             id: username
         }, function (err1, data) {
-            if (err1) throw err1;
+            if (err1) {
+                throw err1;
+            }
 
-            if (data != null) {
+            if (data !== null) {
                 var userpath = "/data/users/" + data.type + "/" + username + "/";
 
                 var profilepath = userpath + "profile.json";
@@ -251,7 +264,9 @@ app.get('/attendance', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
 
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
 
         //console.log("Connected successfully to server");
 
@@ -260,9 +275,11 @@ app.get('/attendance', function (req, res) {
         users.findOne({
             id: username
         }, function (err1, data) {
-            if (err1) throw err1;
+            if (err1) {
+                throw err1;
+            }
 
-            if (data != null) {
+            if (data !== null) {
                 var userpath = "/data/users/" + data.type + "/" + username + "/";
 
                 var attendancepath = userpath + "attendance.json";
@@ -290,7 +307,9 @@ app.get('/academics', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
 
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
 
         //console.log("Connected successfully to server");
 
@@ -299,9 +318,11 @@ app.get('/academics', function (req, res) {
         users.findOne({
             id: username
         }, function (err1, data) {
-            if (err1) throw err1;
+            if (err1) {
+                throw err1;
+            }
 
-            if (data != null) {
+            if (data !== null) {
                 var userpath = "/data/users/" + data.type + "/" + username + "/";
 
                 var academicspath = userpath + "academics.json";
@@ -324,6 +345,29 @@ app.get('/academics', function (req, res) {
     });
 
 
+});
+
+
+
+
+
+
+
+/****************************
+ *                          *
+ *       TRIAL-SERVER       ****************************************************
+ *                          *
+ ****************************
+
+
+ * This part is used for serving the experiments.
+ *
+ */
+
+app.post("/trialform", function (req, res) {
+    console.log(req.body.check);
+    console.log(req.body.gender);
+    res.send("ok");
 });
 
 
@@ -388,7 +432,9 @@ app.get('/canteen/order', function (req, res) {
 
     MongoClient.connect(url, function (err, db) {
 
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
 
         //console.log("Connected successfully to server");
 
@@ -397,9 +443,11 @@ app.get('/canteen/order', function (req, res) {
         users.findOne({
             id: req.query.username
         }, function (err1, userdata) {
-            if (err1) throw err1;
+            if (err1) {
+                throw err1;
+            }
 
-            if (userdata != null) {
+            if (userdata !== null) {
 
 
                 fs.readFile(__dirname + "/data/canteen/rates.json", function (err, ratedata) {
@@ -420,6 +468,9 @@ app.get('/canteen/order', function (req, res) {
                         orders.push(order);
 
                         fs.writeFile(__dirname + usercanteenpath, JSON.stringify(orders), "utf8", function (err) {
+                            if (err) {
+                                throw err;
+                            }
                             res.send("success");
                         });
 
@@ -445,11 +496,13 @@ app.get('/canteen/order', function (req, res) {
 
 app.get('/canteen/myorders', function (req, res) {
 
-    var username = req.query.username;
+
 
     MongoClient.connect(url, function (err, db) {
 
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
 
         //console.log("Connected successfully to server");
 
@@ -458,9 +511,11 @@ app.get('/canteen/myorders', function (req, res) {
         users.findOne({
             id: req.query.username
         }, function (err1, userdata) {
-            if (err1) throw err1;
+            if (err1) {
+                throw err1;
+            }
 
-            if (userdata != null) {
+            if (userdata !== null) {
 
                 var usercanteenpath = "/data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
 
@@ -481,11 +536,13 @@ app.get('/canteen/myorders', function (req, res) {
 
 app.get('/canteen/myorders/clear', function (req, res) {
 
-    var username = req.query.username;
+
 
     MongoClient.connect(url, function (err, db) {
 
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
 
         //console.log("Connected successfully to server");
 
@@ -494,14 +551,18 @@ app.get('/canteen/myorders/clear', function (req, res) {
         users.findOne({
             id: req.query.username
         }, function (err1, userdata) {
-            if (err1) throw err1;
+            if (err1) {
+                throw err1;
+            }
 
-            if (userdata != null) {
+            if (userdata !== null) {
 
                 var usercanteenpath = "/data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
 
                 fs.writeFile(__dirname + usercanteenpath, "[]", "utf8", function (err) {
-
+                    if (err) {
+                        throw err;
+                    }
                     res.send("success");
                 });
 
@@ -618,7 +679,9 @@ io.on('connection', function (socket) {
 
     // when the client emits 'add user', this listens and executes
     socket.on('add user', function (username) {
-        if (addedUser) return;
+        if (addedUser) {
+            return;
+        }
 
         // we store the username in the socket session for this client
         socket.username = username;
@@ -664,7 +727,7 @@ io.on('connection', function (socket) {
 
 
 // must be at last
-app.use(function (req, res, next) {
+app.use(function (req, res) {
     fs.readFile(__dirname + "/www/error.html", function (err, data) {
         res.status(404).write(data);
         res.end();
