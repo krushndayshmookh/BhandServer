@@ -1,0 +1,15 @@
+{
+	"Name": "Trial",
+
+	"Registration Number": "0123456789ABCDEF",
+	"Degree": "Bachelor of Engineering",
+	"Branch": "CSE",
+	"Semester": "III",
+	"Father's Name": "Lollipop",
+	"Mother's Name": "Kitkat",
+	"Gender": "Female",
+	"Date of Birth": "27 July 1998",
+	"Height": "150 cm",
+	"Weight": "48 kg",
+	"Blood Group": "O+"
+}
