@@ -28,108 +28,139 @@
 	<script src="xdk/init-dev.js"></script>
 	<!-- normalizes device and document ready events, see README for details -->
 
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+        #login-page {
+            width: 320px;
+            padding:  0 0;
+            margin: auto;
+            margin-top: 0px;
+            padding-top: 60px;
+            border-radius: 5px;
+
+        }
+
+        #form {
+            position: relative;
+            z-index: 1;
+            background: #FFFFFF;
+            max-width: 360px;
+            margin: 0 auto 100px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.154);
+            border-radius: 15px;
+        }
+
+        #form input {
+            font-family: "Roboto", sans-serif;
+            outline: 0;
+            background: #f2f2f2;
+            width: 100%;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 14px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        #form button {
+            font-family: "Roboto", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background: #00bcd4;
+            width: 60%;
+            border: 0;
+            padding: 13px;
+            color: #FFFFFF;
+            font-size: 14px;
+            -webkit-transition: all 0.3 ease;
+            transition: all 0.3 ease;
+            cursor: pointer;
+            border-radius: 30px;
+        }
+
+        #form button:hover,
+        #form button:active,
+        #form button:focus {
+            background: #43A047;
+        }
+
+
+        #form .message {
+            margin: 15px 0 0;
+            color: #b3b3b3;
+            font-size: 12px;
+        }
+
+        #form .message a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        #form .register-form {
+            display: none;
+        }
+
+
+        #first {
+
+
+            background: linear-gradient(25deg, #00bcd4, #ba68c8);
+
+        }
+
+        #second {
+            text-align: center;
+
+            font-size: 2.0em;
+            font-family: Roboto;
+        }
+
+    </style>
 
 </head>
 
-<body>
-
-
-
-
-
-
-
-    <!-- ----------------------------NAVBAR----------------------------------- --
-	<nav class="fixed">
-		<div class="nav-wrapper blue darken-2">
-			<a href="#!" class="brand-logo">Dashboard</a>
-			<a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
-			<ul class="right hide-on-med-and-down">
-				<li class="waves-effect"><a href="#">Home</a></li>
-				<li class="waves-effect"><a href="#">Page</a></li>
-				<li class="waves-effect"><a href="#">Page</a></li>
-				<li class="waves-effect"><a href="#">Page</a></li>
-				<li class="waves-effect"><a href="#">Page</a></li>
-				<li class="waves-effect"><a href="#">Page</a></li>
-			</ul>
-			<ul class="side-nav" id="mobile-menu">
-				<li class="side-nav-header full-width green lighten-2"><a href="#">#TODO:Header</a></li>
-				<li class="waves-effect full-width"><a href="../../home.html">Home</a></li>
-				<li class="waves-effect full-width"><a href="#">Page</a></li>
-				<li class="waves-effect full-width"><a href="#">Page</a></li>
-				<li class="waves-effect full-width"><a href="#">Page</a></li>
-				<li class="waves-effect full-width"><a href="#">Page</a></li>
-				<li class="waves-effect full-width"><a href="#">Page</a></li>
-			</ul>
-		</div>
-	</nav>
-	<!-- ------------------- NAVBAR -------------------------------------------- -->
-
-
-
-
-
-
-
-
+<body id="first">
 
 
     <!-- -------------------- CONTENT ------------------------------------------- -->
-    <div class="screen-unit valign-wrapper blue-grey lighten-5">
-        <div class="container center">
+    <div class="screen-unit valign-wrapper">
+        <div class="center container">
 
+            <div id="login-page">
+                <div id="form">
+                    <h2 class="center">Crunch</h2>
+                    <h2 id="second">LOG IN</h2>
 
-            <div class="row" id="login-box">
-                <div class="col s10 push-s1 m6 push-m3 card">
-                    <div class="left-align container">
-                        <h4>Clavi</h4>
-                        <h5>Sign in</h5>
-                        <div class="row left-align">
-                            <div class="col s12 input-field">
-                                <!--<i class="material-icons prefix">account_circle</i>-->
-                                <input id="username" type="text" class="validate">
-                                <label for="username">Username</label>
-                            </div>
+                    <div class="login-form">
+                        <input type="text" id="username" placeholder="username" class="validate" />
+                        <input type="password" id="password" placeholder="password" class="validate" />
+                        <button id="sign-in-btn">login</button>
 
-                            <div class="col s12 input-field">
-                                <!--<i class="material-icons prefix">lock</i>-->
-                                <input id="password" type="password" class="validate">
-                                <label for="password">Password</label>
-                            </div>
-                            <div class="col s12">
-                                <a href="#password-reset-box" class="blue-text" id="reset-box-btn">Forgot password?</a>
-                                <div class="btn blue right waves-effect" id="sign-in-btn">Sign In</div>
-                            </div>
-                        </div>
+                        <br>
+                        <br>
+                        <a class="popup" onclick="my()" href="#!">Forgot password?</a>
+
                     </div>
                 </div>
             </div>
-            <div class="row" id="password-reset-box">
-                <div class="col s10 push-s1 m6 push-m3 card">
-                    <div class="left-align container">
-                        <h4>Clavi</h4>
-                        <h5>Forgot password</h5>
-                        <p>Please enter your registered email address. We will send a password reset link to that email.</p>
-                        <div class="row left-align">
 
 
-                            <div class="col s12 input-field">
-                                <!--<i class="material-icons prefix">account_circle</i>-->
-                                <input id="reset-email" type="email" class="validate">
-                                <label for="email">Email</label>
-                            </div>
 
-                            <div class="col s12">
-                                <a href="#login-box" class="blue-text btn-flat waves-effect waves-green" id="reset-cancel-btn">Back</a>
-                                <div class="btn blue right waves-effect" id="reset-btn">Reset</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+            <script>
+                function my() {
+                    alert("Your request for password reset is received. Please contact your system administrator");
+                }
+            </script>
         </div>
     </div>
+
 
 
     <!-- -------------------- CONTENT ------------------------------------------- -->
@@ -154,7 +185,7 @@
 
 
     <script type="text/javascript" src="../js/script.js"></script>
-    <script src="login.js"></script>
+    <script src="../js/login.js"></script>
 
 
 

@@ -408,25 +408,9 @@ app.get('/rates', function (req, res) {
 
 });
 
-app.get('/canteen/order', function (req, res) {
-
-
-    var order = {
-        time: new Date(),
-        item: req.query.item,
-        category: req.query.category,
-        quantity: req.query.quantity,
-        status: "open",
-        username: req.query.username
-    }; // Get canteen orders file and append the request to the file using writefile.
-
-    // that will be done here.
-
-
-
-
-
-    // handle for student side.
+app.post('/canteen/order', function (req, res) {
+    var orders = req.body.orders;
+    var username = orders[0]["username"];
 
     MongoClient.connect(url, function (err, db) {
 
@@ -439,7 +423,7 @@ app.get('/canteen/order', function (req, res) {
         var users = db.collection('users');
 
         users.findOne({
-            id: req.query.username
+            id: username
         }, function (err1, userdata) {
             if (err1) {
                 throw err1;
@@ -447,31 +431,45 @@ app.get('/canteen/order', function (req, res) {
 
             if (userdata !== null) {
 
+                var usercanteenpath = "/data/users/" + userdata.type + "/" + username + "/data/canteen/orders.json";
 
-                fs.readFile(__dirname + "/data/canteen/rates.json", function (err, ratedata) {
+                fs.readFile(__dirname + usercanteenpath, function (err, orderdata) {
 
-                    var rates = JSON.parse(ratedata);
+                    var oldorders = JSON.parse(orderdata);
 
-                    order.rate = rates[order.category][order.item];
+                    //console.log(oldorders);
 
-                    var usercanteenpath = "/data/users/" + userdata.type + "/" + req.query.username + "/data/canteen/orders.json";
+                    for (var order in orders) {
+                        orders[order]["status"] = "open";
+                        oldorders.push(orders[order]);
+                    }
 
-                    fs.readFile(__dirname + usercanteenpath, function (err, orderdata) {
 
 
+                    fs.writeFile(__dirname + usercanteenpath, JSON.stringify(oldorders), "utf8", function (err) {
+                        if (err) {
+                            throw err;
+                        }
 
-                        var orders = JSON.parse(orderdata);
-                        //console.log(orders);
+                        fs.readFile(__dirname + "/data/canteen/orders.json", function (err, orderlist) {
 
-                        orders.push(order);
+                            var openorders = JSON.parse(orderlist);
 
-                        fs.writeFile(__dirname + usercanteenpath, JSON.stringify(orders), "utf8", function (err) {
-                            if (err) {
-                                throw err;
+                            for (var order in orders) {
+
+                                openorders["open"].push(orders[order]);
                             }
-                            res.send("success");
-                        });
 
+
+                            fs.writeFile(__dirname + "/data/canteen/orders.json", JSON.stringify(openorders), "utf8", function (err) {
+                                if (err) {
+                                    throw err;
+
+                                }
+                                res.send("success");
+                            });
+
+                        });
                     });
 
                 });
@@ -575,7 +573,197 @@ app.get('/canteen/myorders/clear', function (req, res) {
 });
 
 
+app.get('/openorders', function (req, res) {
+    fs.readFile(__dirname + "/data/canteen/orders.json", function (err, orderdata) {
+        var orders = JSON.parse(orderdata);
+        res.json(orders["open"]);
+    });
+});
 
+app.get('/closedorders', function (req, res) {
+    fs.readFile(__dirname + "/data/canteen/orders.json", function (err, orderdata) {
+        var orders = JSON.parse(orderdata);
+        res.json(orders["closed"]);
+    });
+});
+
+
+app.post("/orderready", function (req, res) {
+    //fs.readFile(__dirname + "/data/canteen/orders.json", function (err, orderdata) {
+    //var orders = JSON.parse(orderdata);
+
+    res.send("ok");
+    //});
+});
+
+
+app.post("/ordercancel", function (req, res) {
+    var itemid = req.body.itemdate;
+
+    fs.readFile(__dirname + "/data/canteen/orders.json", function (err, orderdata) {
+        var orders = JSON.parse(orderdata);
+
+        var username;
+
+        for (var item in orders["open"]) {
+            if (orders["open"][item]["time"] == itemid) {
+                username = orders["open"][item]["username"];
+
+                orders["open"].splice(item, 1);
+
+
+            }
+        }
+
+
+        fs.writeFile(__dirname + "/data/canteen/orders.json", JSON.stringify(orders), "utf8", function (err) {
+            if (err) {
+                throw err;
+            }
+
+
+            // console.log(username);
+
+
+            MongoClient.connect(url, function (err, db) {
+
+                if (err) {
+                    throw err;
+                }
+
+                var users = db.collection('users');
+
+                users.findOne({
+                    id: username
+                }, function (err1, userdata) {
+                    if (err1) {
+                        throw err1;
+                    }
+
+                    if (userdata !== null) {
+
+                        var usercanteenpath = "/data/users/" + userdata.type + "/" + username + "/data/canteen/orders.json";
+
+                        fs.readFile(__dirname + usercanteenpath, function (err, userorders) {
+                            var oldorders = JSON.parse(userorders);
+                            //console.log(oldorders);
+                            for (var order in oldorders) {
+
+                                //console.log(oldorders[order]["time"]);
+                                // console.log(itemid);
+
+                                if (oldorders[order]["time"] == itemid && oldorders[order]["status"] == "open") {
+                                    //console.log(oldorders[order]["time"]);
+                                    //console.log(oldorders[order]["status"]);
+                                    oldorders[order]["status"] = "cancel";
+                                    //console.log(oldorders[order]["status"]);
+                                    break;
+                                }
+                            }
+
+                            fs.writeFile(__dirname + usercanteenpath, JSON.stringify(oldorders), "utf8", function (err) {
+
+                                if (err) {
+                                    throw err;
+                                }
+                                res.send("ok");
+                            });
+                        });
+                    }
+                    db.close();
+                });
+            });
+        });
+    });
+});
+
+
+
+
+app.post("/orderdone", function (req, res) {
+
+    var itemid = req.body.itemdate;
+
+    fs.readFile(__dirname + "/data/canteen/orders.json", function (err, orderdata) {
+        var orders = JSON.parse(orderdata);
+
+        var username;
+
+        for (var item in orders["open"]) {
+            if (orders["open"][item]["time"] == itemid) {
+                username = orders["open"][item]["username"];
+
+                var earn = orders["open"][item]["rate"] * orders["open"][item]["quantity"];
+                orders["earnings"] = orders["earnings"] + earn;
+                orders["closed"].push(orders["open"][item]);
+
+                orders["open"].splice(item, 1);
+            }
+        }
+
+
+        fs.writeFile(__dirname + "/data/canteen/orders.json", JSON.stringify(orders), "utf8", function (err) {
+            if (err) {
+                throw err;
+            }
+
+
+            // console.log(username);
+
+
+            MongoClient.connect(url, function (err, db) {
+
+                if (err) {
+                    throw err;
+                }
+
+                var users = db.collection('users');
+
+                users.findOne({
+                    id: username
+                }, function (err1, userdata) {
+                    if (err1) {
+                        throw err1;
+                    }
+
+                    if (userdata !== null) {
+
+                        var usercanteenpath = "/data/users/" + userdata.type + "/" + username + "/data/canteen/orders.json";
+
+                        fs.readFile(__dirname + usercanteenpath, function (err, userorders) {
+                            var oldorders = JSON.parse(userorders);
+                            //console.log(oldorders);
+                            for (var order in oldorders) {
+
+                                if (oldorders[order]["time"] == itemid && oldorders[order]["status"] == "open") {
+                                    oldorders[order]["status"] = "closed";
+                                    break;
+                                }
+                            }
+
+                            fs.writeFile(__dirname + usercanteenpath, JSON.stringify(oldorders), "utf8", function (err) {
+
+                                if (err) {
+                                    throw err;
+                                }
+                                res.send("ok");
+                            });
+                        });
+                    }
+                    db.close();
+                });
+            });
+        });
+    });
+});
+
+app.get("/earnings", function (req, res) {
+    fs.readFile(__dirname + "/data/canteen/orders.json", function (err, orderdata) {
+        var orders = JSON.parse(orderdata);
+        var k = orders["earnings"];
+        res.json(k);
+    });
+});
 
 
 /****************************

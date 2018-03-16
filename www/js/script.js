@@ -2,10 +2,10 @@
 
 
 
-//const hostaddress = "http://clavi.herokuapp.com";
+//var hostaddress = "https://crunchydevs.herokuapp.com";
 //const hostaddress = "http://192.168.225.68:3000";
-const hostaddress = "http://localhost:3000";
-//const hostaddress = "";
+var hostaddress = "http://localhost:3000";
+
 
 
 
@@ -25,27 +25,26 @@ $(document).ready(function () {
     // initialize jquery
     $('.button-collapse').sideNav();
 
-    /*
-    $('ul.tabs').tabs({
-    	swipeable: true
-    });
-    */
+
+   /* $('ul.tabs').tabs({
+        swipeable: true
+    });*/
+
     $('ul.tabs').tabs();
     //$('.parallax').parallax();
-    /*
-    	$('.carousel.carousel-slider').carousel({
-    		fullWidth: true
-    	});
-    	$('.carousel').carousel();
-    */
 
-    $("select").material_select();
+    //$('.carousel.carousel-slider').carousel({
+      //  fullWidth: true
+    //});
+    //$('.carousel').carousel();
+
+
 
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal').modal();
 
 
-    document.getElementById("user-greeter").innerHTML = Cookies.get("username-name");
+    //document.getElementById("user-greeter").innerHTML = Cookies.get("username-name");
 
     hideWait();
 
@@ -96,6 +95,7 @@ $(".logout-btn").click(function () {
     Cookies.remove('username-name');
     //console.log(document.getElementById("global-script").getAttribute("src"));
     window.location = $("#global-script").attr("src").replace("js/script.js", "pages/login.html");
+    //window.location = "pages/login.html";
 
 });
 

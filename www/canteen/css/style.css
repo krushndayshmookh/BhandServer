@@ -1,0 +1,135 @@
+.home-page-menu-item
+{
+    width: 100%;
+
+    text-align: center;
+}
+
+.full-width
+{
+    width: 100%;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.card-with-padding
+{
+    padding: 5px;
+}
+
+.height-seventy
+{
+    height: 70%;
+}
+
+.dev-img
+{
+    width: 150px;
+    height: 150px;
+
+    border-radius: 100%;
+}
+
+.card.tiny
+{
+    height: 200px;
+}
+
+.no-text-decoration
+{
+    text-decoration: none;
+}
+
+.screen-unit
+{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
+
+#password-reset-box
+{
+    display: none;
+}
+
+.profile-picture
+{
+    width: 200px;
+    height: auto;
+}
+
+.loading-flashing
+{
+    animation: loading-flash 1s infinite alternate;
+}
+
+@keyframes loading-flash
+{
+    0%
+    {
+        color: white;
+    }
+    100%
+    {
+        color: red;
+    }
+}
+
+nav .nav-wrapper .side-nav li a
+{
+    font-weight: 400;
+}
+
+#side-nav-head
+{
+    font-size: 2em;
+    font-weight: 300;
+}
+
+.strong
+{
+    font-weight: 500;
+}
+
+.graph-bar
+{
+    height: 20px;
+    /*background: red;*/
+}
+
+.one-subject td
+{
+    border-collapse: collapse;
+
+    border: 1px solid #555;
+}
+
+.text-shadow
+{
+    text-shadow: 0 1px 5px #000;
+}
+
+#waiting-overlay
+{
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+
+    background-color: rgba(0, 0, 0, .5);
+}
+
+
+#img-preview {
+    max-height:   200px ;
+
+
+}
+

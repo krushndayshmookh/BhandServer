@@ -1,127 +1,135 @@
-.home-page-menu-item
-{
+.home-page-menu-item {
     width: 100%;
-
     text-align: center;
 }
 
-.full-width
-{
+.full-width {
     width: 100%;
+
 }
 
-.hidden
-{
+.hidden {
     display: none;
 }
 
-.card-with-padding
-{
+.card-with-padding {
     padding: 5px;
 }
 
-.height-seventy
-{
+.height-seventy {
     height: 70%;
 }
 
-.dev-img
-{
-    width: 150px;
+.dev-img {
     height: 150px;
-
+    width: 150px;
     border-radius: 100%;
 }
 
-.card.tiny
-{
+.card.tiny {
     height: 200px;
 }
 
-.no-text-decoration
-{
+.no-text-decoration {
     text-decoration: none;
 }
 
-.screen-unit
-{
-    width: 100vw;
+.screen-unit {
     height: 100vh;
-    margin: 0;
+    width: 100%;
+    margin: 0px;
 }
 
-#password-reset-box
-{
+#password-reset-box {
     display: none;
 }
 
-.profile-picture
-{
-    width: 200px;
+.profile-picture {
     height: auto;
+    width: 200px;
 }
 
-.loading-flashing
-{
+.loading-flashing {
     animation: loading-flash 1s infinite alternate;
 }
 
-@keyframes loading-flash
-{
-    0%
-    {
+@keyframes loading-flash {
+    0% {
         color: white;
     }
-    100%
-    {
+    100% {
         color: red;
     }
 }
 
-nav .nav-wrapper .side-nav li a
-{
+nav .nav-wrapper .side-nav li a {
     font-weight: 400;
+    color: white;
 }
 
-#side-nav-head
-{
-    font-size: 2em;
-    font-weight: 300;
+#side-nav-head {
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: 400;
+    font-family: Roboto;
+    color: white;
 }
 
-.strong
-{
+.strong {
     font-weight: 500;
 }
 
-.graph-bar
-{
+.graph-bar {
     height: 20px;
     /*background: red;*/
 }
 
-.one-subject td
-{
+.one-subject td {
+    border: 1px solid #555555;
     border-collapse: collapse;
-
-    border: 1px solid #555;
 }
 
-.text-shadow
-{
-    text-shadow: 0 1px 5px #000;
+.text-shadow {
+    text-shadow: 0px 1px 5px #000;
 }
 
-#waiting-overlay
-{
+#waiting-overlay {
     position: fixed;
-    z-index: 2;
+    display: flex;
     top: 0;
+    left: 0;
     right: 0;
     bottom: 0;
-    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
 
-    display: flex;
 
-    background-color: rgba(0, 0, 0, .5);
+.blue-gradient {
+    background: linear-gradient(to right, #4527a0, #f50057 );
+}
+
+ul.tabs.grey.darken-4 {
+    max-height: 50px;
+}
+
+
+#cart-modal .modal-content {
+    padding: 24px 0px;
+
+}
+
+ul.side-nav {
+    background: linear-gradient(155deg, #c5cae9, #0277bd);
+}
+
+
+#cart-modal .modal-content h4 {
+    margin: 24px;
+}
+
+
+.payment-option img {
+    border-radius: 50%;
+    max-width: 100px;
 }

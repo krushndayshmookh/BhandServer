@@ -2,9 +2,10 @@
 
 
 
-const hostaddress = "http://clavi.herokuapp.com";
+//const hostaddress = "http://clavi.herokuapp.com";
 //const hostaddress = "http://192.168.225.68:3000";
-
+//const hostaddress = "http://localhost:3000";
+//const hostaddress = "";
 
 
 
@@ -38,12 +39,13 @@ $(document).ready(function () {
     	$('.carousel').carousel();
     */
 
+    $("select").material_select();
 
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal').modal();
 
 
-    document.getElementById("user-greeter").innerHTML = Cookies.get("username-name");
+   // document.getElementById("user-greeter").innerHTML = Cookies.get("username-name");
 
     hideWait();
 
@@ -98,6 +100,11 @@ $(".logout-btn").click(function () {
 });
 
 
+function updateEarning () {
+    $.get("/earnings", function(resp){
+       document.getElementById("earnings").innerHTML = resp;
+    });
+}
 
 
 

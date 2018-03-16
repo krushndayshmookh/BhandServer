@@ -1,0 +1,101 @@
+
+/*
+ * Font config
+ */
+
+.font-sacramento {
+	font-family: 'Sacramento', cursive;
+}
+
+.font-merienda {
+	font-family: 'Merienda', cursive;
+	font-weight: 400;
+}
+.font-merienda-bold {
+	font-family: 'Merienda', cursive;
+	font-weight: 700;
+}
+
+.font-nunito-extra-light {
+    font-family: 'Nunito';
+    font-weight: 200;
+    font-style: normal;
+}
+
+.font-nunito-extra-light-italic {
+    font-family: 'Nunito';
+    font-weight: 200;
+    font-style: italic;
+}
+
+.font-nunito-light {
+    font-family: 'Nunito';
+    font-weight: 300;
+    font-style: normal;
+}
+
+.font-nunito-light-italic {
+    font-family: 'Nunito';
+    font-weight: 300;
+    font-style: italic;
+}
+
+.font-nunito-regular {
+    font-family: 'Nunito';
+    font-weight: 400;
+    font-style: normal;
+}
+
+.font-nunito-regular-italic {
+    font-family: 'Nunito';
+    font-weight: 400;
+    font-style: italic;
+}
+
+.font-nunito-semi-bold {
+    font-family: 'Nunito';
+    font-weight: 600;
+    font-style: normal;
+}
+
+.font-nunito-semi-bold-italic {
+    font-family: 'Nunito';
+    font-weight: 600;
+    font-style: italic;
+}
+
+.font-nunito-bold {
+    font-family: 'Nunito';
+    font-weight: 700;
+    font-style: normal;
+}
+
+.font-nunito-bold-italic {
+    font-family: 'Nunito';
+    font-weight: 700;
+    font-style: italic;
+}
+
+.font-nunito-extra-bold {
+    font-family: 'Nunito';
+    font-weight: 800;
+    font-style: normal;
+}
+
+.font-nunito-extra-bold-italic {
+    font-family: 'Nunito';
+    font-weight: 800;
+    font-style: italic;
+}
+
+.font-nunito-black {
+    font-family: 'Nunito';
+    font-weight: 900;
+    font-style: normal;
+}
+
+.font-nunito-black-italic {
+    font-family: 'Nunito';
+    font-weight: 900;
+    font-style: italic;
+}
