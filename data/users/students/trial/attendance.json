@@ -1,8 +1,8 @@
 {
 	"Physics": 80,
-	"Mathematics": 60,
-	"Engineering Mechanics": 50,
+	"Mathematics":90,
+	"Engineering Mechanics": 90,
 	"Basics of Computing": 99,
-	"Engineering Graphics": 30,
-	"Ethics and Professional Competency": 75
+	"Engineering Graphics": 95,
+	"Ethics and Professional Competency": 99
 }
