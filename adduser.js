@@ -2,12 +2,13 @@
 
 /* 
  * Author: Krushn Dayshmookh
- *
+ */
 
 var MongoClient = require('mongodb').MongoClient;
-var mongolaburi = "mongodb://clavi:clavidbpassword@ds117592.mlab.com:17592/clavi";
+//var mongolaburi = "mongodb://clavi:clavidbpassword@ds117592.mlab.com:17592/clavi";
+var mongolaburi = "mongodb://127.0.0.1:27017";
 
-/*
+
 var users = [{
         id: "2016ACSC0108072",
         name: "Krushn Dayshmookh",
@@ -49,13 +50,18 @@ var users = [{
 
 
 ];
-*
-//console.log(someusers);
 
 
+/*
+{
+        id: "trial",
+        name: "Trial",
+        type: "students",
+        email: "trial",
+        password: "trial"
+    }
 
-
-
+    */
 
 // Connection URL
 var url = mongolaburi;
@@ -69,4 +75,4 @@ MongoClient.connect(url, function (err, db) {
     });
 });
 
-*/
+
