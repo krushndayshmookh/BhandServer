@@ -153,12 +153,12 @@
 
 
     <script type="text/javascript" src="js/script.js" id="global-script"></script>
-    <script type="text/javascript" src="js/canteen.js"></script>
+
     <script src="js/socket.io.js"></script>
 
     <script>
         $(document).ready(function() {
-            var socket = io("https://clavi.herokuapp.com");
+
 
             $.get("/openorders", function(orders) {
 
@@ -183,9 +183,14 @@
 
             });
         });
+        //  var socket = io("https://clavi.herokuapp.com");
+        //var socket = io("https://localhost:3000");
+        //socket.on('connect', function(data) {
+          //  socket.emit('join', 'Hello World from client');
+        //});
 
     </script>
-
+    <script type="text/javascript" src="js/canteen.js"></script>
 
 
 

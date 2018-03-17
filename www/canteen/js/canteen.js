@@ -1,10 +1,18 @@
 function orderready(user, itemname) {
-    socket.emit.post("userready", {
+
+    var i = {
         uname: user,
         item: itemname
-    }, function () {
+    };
+
+    //console.log(i);
+
+    // console.log("k");
+    socket.emit("userready", i, function () {
+        console.log("k");
         document.getElementById(itemname + Date.parse(ordertime)).classList.add("green");
     });
+    document.getElementById(itemname + Date.parse(ordertime)).classList.add("green");
 }
 
 function ordercancel(ordertime, itemname) {
