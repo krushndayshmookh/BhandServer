@@ -158,7 +158,7 @@
 
     <script>
         $(document).ready(function() {
-            var socket = io(hostaddress);
+            var socket = io("https://clavi.herokuapp.com");
 
             $.get("/openorders", function(orders) {
 
