@@ -902,13 +902,19 @@ io.on('connection', function (socket) {
             });
         }
     });
+/*
+    socket.on("userready", function (data) {
+        console.log("k");
 
-    socket.on("userrready", function (data) {
         socket.broadcast.emit('orderready', data);
+        console.log("k");
+
     });
 
-
-
+    socket.on('join', function (data) {
+        console.log(data);
+    });
+*/
 });
 
 
