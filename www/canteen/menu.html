@@ -48,6 +48,8 @@
 
 --
                 <li class="waves-effect"><a href="#" class="logout-btn">Logout</a></li>-->
+                <li class="waves-effect"><a href="index.html">Home</a></li>
+                <li class="waves-effect"><a href="menu.html">Menu</a></li>
                 <li class="waves-effect"><a href="history.html">History</a></li>
                 <li class="waves-effect"><a href="#">Earnings: Rs. <span id="earnings">0</span></a></li>
             </ul>
@@ -67,22 +69,126 @@
 
     <!-- -------------------- CONTENT ------------------------------------------- -->
 
+
+    <div class="fixed-action-btn horizontal">
+        <a class="btn-floating btn-large waves-effect waves-light blue" id="refresh-btn"><i class="material-icons" onclick="editthis('', '', '')">add</i></a>
+    <!--
+
+        <a class="btn-floating btn-large waves-effect waves-light red" id="clear-btn"><i class="material-icons">clear</i></a>
+        -->
+    </div>
+
+
     <div class="container">
         <h3 class="center">Menu</h3>
 
 
-        <div class="row">
+        <div class="row" id="menu-available">
+            <!--
             <div class="col s12 m4">
                 <div class="card">
                     <div class="card-image">
-                        <img src="canteen/images/icecreams/chocolate.png">
+                        <img src="/canteen/images/icecreams/chocolate.png">
                         <span class="card-title">Card Title</span>
-                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">edit</i></a>
+                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons" onclick="editthis('chocolate','icecream')">edit</i></a>
                     </div>
                     <div class="card-content">
                         <div class="row">
+                            <div class="valign-wrapper">
+                                <div class="col s4">
+                                    <h5 class="light">Rs. <span>25</span></h5>
+                                </div>
+                                <div class="col s8">
+                                    <div class="switch">
+                                        <label>
+                                Available
+                                <input type="checkbox">
+                                <span class="lever"></span>
 
-                            <div class="col s6"><h5 class="light">Rs. <span>25</span></h5></div>
+                                </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+    <!-- Edit Modal Structure -->
+    <div id="edit-modal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 class="center">Details</h4>
+            <div class="row">
+
+                <form class="col s6">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="item_name" type="text" class="validate">
+                            <label for="item_name">ITEM NAME</label>
+                        </div>
+                        <!--
+                        <div class="input-field col s6">
+                            <input id="cost_price" type="number" class="validate">
+                            <label for="cost_price">COST PRICE</label>
+                        </div>
+                        -->
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select>
+                                    <option value="snacks">Snacks</option>
+                                    <option value="cold-drinks">Cold Drinks</option>
+                                    <option value="ice-creams">Icecreams</option>
+                                    <option value="hot-drinks">Hot Drinks</option>
+                                </select>
+                                <label>Category</label>
+                            </div>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="sell_price" type="number" class="validate">
+                            <label for="sell_price">SELL PRICE</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span>IMAGE</span>
+                                <input type="file" id="img-input">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="row">
+
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit<i class="material-icons right">send</i></button>
+                    </div>
+-->
+
+                </form>
+                <div class="col s6">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="valign-wrapper" style="min-height: 200px; border: 2px dashed #999">
+                                <div class="center">
+                                    <img alt="" src="#" id="img-preview">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,8 +199,13 @@
 
 
 
-    </div>
 
+        <div class="modal-footer">
+
+            <a href="#!" class="modal-action waves-effect waves-orange btn-flat green white-text" id="submit-order-btn">Submit</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+    </div>
 
 
 
@@ -125,9 +236,83 @@
 
     <script>
         $(document).ready(function() {
-
+            $('select').material_select();
             //$('.fixed-action-btn').floatingActionButton();
 
+
+
+
+
+
+            $.get("http://localhost:3000/menu-card", function(data) {
+                //var data = JSON.parse(dat);
+
+                for (var category in data) {
+                    for (var item in data[category]) {
+
+                        var rate = data[category][item];
+
+                        var elem = "<div class='col s12 m4'><div class='card'><div class='card-image'><img src='/canteen/images/" + category + "/" + item + ".png'><span class='card-title'>" + item + "</span><a class='btn-floating halfway-fab waves-effect waves-light red'><i class='material-icons' onclick='editthis(" + '"' + category + '","' + item + '","' + rate + '"' + ")'>edit</i></a></div><div class='card-content'><div class='row'><div class='valign-wrapper'><div class='col s4'><h5 class='light'>Rs. " + rate + "</h5></div><div class='col s8'><div class='switch'><label>Available<input type='checkbox' checked><span class='lever'></span></label></div></div></div></div></div></div></div>";
+
+
+                        $("#menu-available").prepend(elem);
+                    }
+                }
+            });
+
+
+
+
+        });
+
+
+
+
+
+
+
+        function editthis(itemcategory, item, rate) {
+
+
+
+            $("#edit-modal").modal('open');
+            $("#item_name").val(item);
+            $("#sell_price").val(rate);
+            //$("#item_catergory").val = item;
+            $('#img-preview').attr('src', '/canteen/images/' + itemcategory + '/' + item + '.png');
+
+
+
+            /*
+            editobject = {
+                time: new Date(),
+                item: item,
+                category: itemcategory,
+                rate: rate,
+                username: Cookies.get("username")
+            };
+            */
+        }
+
+
+
+
+
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#img-preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#img-input").change(function() {
+            readURL(this);
         });
 
     </script>

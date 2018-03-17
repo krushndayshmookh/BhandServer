@@ -759,6 +759,14 @@ app.get("/earnings", function (req, res) {
 });
 
 
+app.get("/menu-card", function (req, res) {
+    fs.readFile(__dirname + "/data/canteen/rates.json", function (err, orderdata) {
+        var orders = JSON.parse(orderdata);
+        res.json(orders);
+    });
+});
+
+
 /****************************
  *                          *
  *      PAPER SERVER        ****************************************************
@@ -811,6 +819,15 @@ app.get('/papers', function (req, res) {
     });
 
 });
+
+
+
+
+
+
+
+
+
 
 
 
