@@ -588,13 +588,6 @@ app.get('/closedorders', function (req, res) {
 });
 
 
-app.post("/orderready", function (req, res) {
-    //fs.readFile(__dirname + "/data/canteen/orders.json", function (err, orderdata) {
-    //var orders = JSON.parse(orderdata);
-
-    res.send("ok");
-    //});
-});
 
 
 app.post("/ordercancel", function (req, res) {
@@ -909,6 +902,13 @@ io.on('connection', function (socket) {
             });
         }
     });
+
+    socket.on("userrready", function (data) {
+        socket.broadcast.emit('orderready', data);
+    });
+
+
+
 });
 
 

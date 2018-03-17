@@ -1,20 +1,9 @@
-
-
-
-
-
-
-
-
-
-
-function orderready(ordertime, itemname) {
-    $.post("/orderready", {
-        itemdate: ordertime
-    }, function (res) {
-        if (res == "ok") {
-            document.getElementById(itemname + Date.parse(ordertime)).classList.add("green");
-        }
+function orderready(user, itemname) {
+    socket.emit.post("userready", {
+        uname: user,
+        item: itemname
+    }, function () {
+        document.getElementById(itemname + Date.parse(ordertime)).classList.add("green");
     });
 }
 

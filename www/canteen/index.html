@@ -154,10 +154,12 @@
 
     <script type="text/javascript" src="js/script.js" id="global-script"></script>
     <script type="text/javascript" src="js/canteen.js"></script>
-
+    <script src="js/socket.io.js"></script>
 
     <script>
         $(document).ready(function() {
+            var socket = io(hostaddress);
+
             $.get("/openorders", function(orders) {
 
                 for (item in orders) {
@@ -167,7 +169,7 @@
                     var orderamount = parseInt(orders[item].quantity) * parseInt(orders[item].rate);
 
                     //if (orders[item].status == "open") {
-                    openorders = ("<tr id='" + orders[item].item + Date.parse(orders[item].time) + "'><td>" + orderdate + "<br><span class='grey-text'>" + ordertime + "</span></td><td>" + orders[item].item + "<br><span class='grey-text'>" + orders[item].category + "</span></td><td>" + orders[item].quantity + "</td><td>" + orders[item].rate + "</td><td class='strong'>" + orderamount + "</td><td>" + orders[item]["username"] + "</td><td><a class='btn-floating waves-effect waves-light red 'onclick='ordercancel(" + '"' + orders[item].time + '","' + orders[item].item + '"' + ")'><i class='material-icons' >close</i></a><a class='btn-floating waves-effect waves-light blue' onclick='orderdone(" + '"' + orders[item].time + '","' + orders[item].item + '"' + ")'><i class='material-icons'>done_all</i></a><a class='btn-floating waves-effect waves-light green' onclick='orderready(" + '"' + orders[item].time + '","' + orders[item].item + '"' + ")'><i class='material-icons'>check</i></a></td></tr>");
+                    openorders = ("<tr id='" + orders[item].item + Date.parse(orders[item].time) + "'><td>" + orderdate + "<br><span class='grey-text'>" + ordertime + "</span></td><td>" + orders[item].item + "<br><span class='grey-text'>" + orders[item].category + "</span></td><td>" + orders[item].quantity + "</td><td>" + orders[item].rate + "</td><td class='strong'>" + orderamount + "</td><td>" + orders[item]["username"] + "</td><td><a class='btn-floating waves-effect waves-light red 'onclick='ordercancel(" + '"' + orders[item].time + '","' + orders[item].item + '"' + ")'><i class='material-icons' >close</i></a><a class='btn-floating waves-effect waves-light blue' onclick='orderdone(" + '"' + orders[item].time + '","' + orders[item].item + '"' + ")'><i class='material-icons'>done_all</i></a><a class='btn-floating waves-effect waves-light green' onclick='orderready(" + '"' + orders[item]["username"] + '","' + orders[item].item + '"' + ")'><i class='material-icons'>check</i></a></td></tr>");
                     //.concat(openorders);
                     $("#orders-list").prepend(openorders);
                     //}
@@ -175,6 +177,10 @@
                 }
                 updateEarning();
                 // console.log(orders);
+
+
+
+
             });
         });
 
