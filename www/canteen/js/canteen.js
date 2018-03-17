@@ -1,4 +1,4 @@
-function orderready(user, itemname) {
+function orderready(user, itemname, ordertime) {
 
     var i = {
         uname: user,
@@ -8,10 +8,12 @@ function orderready(user, itemname) {
     //console.log(i);
 
     // console.log("k");
+    /*
     socket.emit("userready", i, function () {
         console.log("k");
         document.getElementById(itemname + Date.parse(ordertime)).classList.add("green");
     });
+    */
     document.getElementById(itemname + Date.parse(ordertime)).classList.add("green");
 }
 
