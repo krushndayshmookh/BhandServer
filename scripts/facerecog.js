@@ -1,70 +1,28 @@
 var fs = require('fs');
-
-
 var fr = require('face-recognition');
 
 var detector = fr.FaceDetector();
-var recognizer = fr.FaceRecognizer()
+var recognizer = fr.FaceRecognizer();
 
+var faces = fs.readdirSync("./facerec/faces");
 
+for (var face in faces) {
 
-//console.log("image loaded");
+    console.log(faces[face] + " training started.");
 
-//const win = new fr.ImageWindow();
+    var imagespath = fs.readdirSync("./facerec/faces/" + faces[face]);
+    var images = [];
 
+    for (var image in imagespath) {
+        images[image] = fr.loadImage(__dirname + "/facerec/faces/" + faces[face] + "/" + imagespath[image]);
+        console.log("processing " + imagespath[image])
+    }
+    recognizer.addFaces(images, faces[face]);
 
-var kimage = [];
-var pimage = [];
-
-var kroute = fs.readdirSync("./facerec/k");
-
-for (var item in kroute) {
-    kimage[item] = fr.loadImage(__dirname+"/facerec/k/"+kroute[item]);
+    //console.log(faces[face] + " added to model.");
 }
 
-recognizer.addFaces(kimage, 'krushn');
+const modelState = recognizer.serialize();
+fs.writeFileSync('model.json', JSON.stringify(modelState));
 
-
-
-var proute = fs.readdirSync("./facerec/p");
-
-for (var item in kroute) {
-    pimage[item] = fr.loadImage(__dirname+"/facerec/p/"+proute[item]);
-}
-
-recognizer.addFaces(pimage, 'piyush');
-
-
-
-
-
-var image = fr.loadImage('./facerec/disgust.png');
-const predictions = recognizer.predictBest(image)
-console.log(predictions)
-
-
-
-
-
-
-
-
-
-//console.log(kimage);
-//console.log(pimage);
-
-//var rec = detector.detectFaces(image);
-
-//console.log("dectected");
-
-//console.log(rec);
-
-//win.setImage(image);
-/*
-for (var i in rec){
-	win.setImage(rec[i]);
-	fr.hitEnterToContinue();
-
-}
-*/
-
+console.log("all faces added to model.");
