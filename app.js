@@ -150,7 +150,7 @@ app.post('/attendance', upload.single('att'), (req, res) => {
         //console.log(predictions);
 
         return res.send({
-            faces: faces.length-,
+            faces: faces.length,
             present: present
         });
 
@@ -360,6 +360,48 @@ app.get('/attendance', function (req, res) {
                     var attendance = JSON.parse(attendancedata);
 
                     res.send(attendance);
+                    //res.json(attendancedata);
+                    //console.log("Attendance of " + username + " sent.");
+                });
+
+            }
+
+            db.close();
+        });
+    });
+
+});
+
+app.get('/library', function (req, res) {
+    var username = req.query.username;
+
+    MongoClient.connect(url, function (err, db) {
+
+        if (err) {
+            throw err;
+        }
+
+
+        var users = db.collection('users');
+
+        users.findOne({
+            id: username
+        }, function (err1, data) {
+            if (err1) {
+                throw err1;
+            }
+
+            if (data !== null) {
+                var userpath = "/data/users/" + data.type + "/" + username + "/";
+                //console.log("Connected user");
+
+                var librarypath = userpath + "library.json";
+
+                fs.readFile(__dirname + librarypath, function (err1, librarydata) {
+
+                    var library = JSON.parse(librarydata);
+
+                    res.send(library);
                     //res.json(attendancedata);
                     //console.log("Attendance of " + username + " sent.");
                 });
