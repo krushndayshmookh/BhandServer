@@ -1,15 +1,17 @@
 {
-	"Name": "Mrunalini Dudhagawali",
+	"Name": "Rahul Manusmare",
 
-	"Registration Number": "2016ACSC0101067",
+	"Registration Number": "2016ACSC0100015",
 	"Degree": "Bachelor of Engineering",
 	"Branch": "CSE",
 	"Semester": "III",
-	"Father's Name": "Vilas",
+	"Father's Name": "Narendra",
+	"Father's Number": "9800000001",
 	"Mother's Name": "Dont know",
+	"Mother's Number": "9700000001",
 	"Gender": "Female",
-	"Date of Birth": "forgot",
-	"Height": "150 cm",
-	"Weight": "55 kg",
-	"Blood Group": "ask"
+	"Date of Birth": "7 July 1998",
+	"Height": "185 cm",
+	"Weight": "75 kg",
+	"Blood Group": "A+"
 }

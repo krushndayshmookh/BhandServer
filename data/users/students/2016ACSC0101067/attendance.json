@@ -1,8 +1,105 @@
 {
-	"Physics": 80,
-	"Mathematics": 60,
-	"Engineering Mechanics": 50,
-	"Basics of Computing": 99,
-	"Engineering Graphics": 30,
-	"Ethics and Professional Competency": 75
+    "Physics": {
+        "dates": {
+            "date": 1,
+            "date1": 1,
+            "date3": 0,
+            "dated": 1,
+            "dates": 1,
+            "dateg": 1,
+            "dateh": 1,
+            "dates": 1,
+            "datea": 1,
+            "dateg": 1,
+            "dateb": 1,
+            "dates": 1,
+            "dates": 1
+        }
+    },
+
+    "Mathematics": {
+        "dates": {
+            "date": 1,
+            "date1": 1,
+            "date3": 1,
+            "dated": 0,
+            "dates": 1,
+            "dateg": 1,
+            "dateh": 0,
+            "dates": 1,
+            "datea": 0,
+            "dateg": 1,
+            "dateb": 1,
+            "dates": 1,
+            "dates": 1
+        }
+    },
+    "Engineering Mechanics": {
+        "dates": {
+            "date": 1,
+            "date1": 1,
+            "date3": 0,
+            "dated": 0,
+            "dates": 0,
+            "dateg": 1,
+            "dateh": 1,
+            "dates": 1,
+            "datea": 0,
+            "dateg": 1,
+            "dateb": 1,
+            "dates": 1,
+            "dates": 1
+        }
+    },
+    "Basics of Computing": {
+        "dates": {
+            "date": 1,
+            "date1": 1,
+            "date3": 0,
+            "dated": 1,
+            "dates": 1,
+            "dateg": 0,
+            "dateh": 1,
+            "dates": 1,
+            "datea": 1,
+            "dateg": 0,
+            "dateb": 0,
+            "dates": 1,
+            "dates": 0
+        }
+    },
+    "Engineering Graphics": {
+        "dates": {
+            "date": 1,
+            "date1": 0,
+            "date3": 1,
+            "dated": 0,
+            "dates": 1,
+            "dateg": 0,
+            "dateh": 1,
+            "dates": 0,
+            "datea": 1,
+            "dateg": 1,
+            "dateb": 0,
+            "dates": 1,
+            "dates": 1
+        }
+    },
+    "Ethics and Professional Competency": {
+        "dates": {
+            "date": 1,
+            "date1": 1,
+            "date3": 0,
+            "dated": 1,
+            "dates": 1,
+            "dateg": 1,
+            "dateh": 1,
+            "dates": 1,
+            "datea": 0,
+            "dateg": 1,
+            "dateb": 1,
+            "dates": 1,
+            "dates":
+        }
+    }
 }

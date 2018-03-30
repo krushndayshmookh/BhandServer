@@ -2,33 +2,33 @@
 	"subject1": {
 		"teacher": "Some teacher",
 		"marks": {
-			"tae": [4, 4, 3, 4, 4, 3, 4],
-			"cae": [18, 18, 20],
-			"exam": [54]
+			"tae": [0, 0, 0, 0, 0, 0, 0],
+			"cae": [0, 0, 0],
+			"exam": [0]
 		}
 	},
 	"subject2": {
 		"teacher": "Some teacher",
 		"marks": {
-			"tae": [4, 4, 3, 4, 4, 3, 4],
-			"cae": [18, 18, 20],
-			"exam": [54]
+			"tae": [0, 0, 0, 0, 0, 0, 0],
+			"cae": [0, 0, 0],
+			"exam": [0]
 		}
 	},
 	"subject3": {
 		"teacher": "Some teacher",
 		"marks": {
-			"tae": [4, 4, 3, 4, 4, 3, 4],
-			"cae": [18, 18, 20],
-			"exam": [54]
+			"tae": [0, 0, 0, 0, 0, 0, 0],
+			"cae": [0, 0, 0],
+			"exam": [0]
 		}
 	},
 	"subject4": {
 		"teacher": "Some teacher",
 		"marks": {
-			"tae": [4, 4, 3, 4, 4, 3, 4],
-			"cae": [18, 18, 20],
-			"exam": [54]
+			"tae": [0, 0, 0, 0, 0, 0, 0],
+			"cae": [0, 0, 0],
+			"exam": [0]
 		}
 	}
 }

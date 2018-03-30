@@ -1,0 +1,34 @@
+{
+	"subject1": {
+		"teacher": "Some teacher",
+		"marks": {
+			"tae": [4, 2, 2, 4, 1, 0, 4],
+			"cae": [11, 14, 10],
+			"exam": [31]
+		}
+	},
+	"subject2": {
+		"teacher": "Some teacher",
+		"marks": {
+			"tae": [4, 3, 3, 1, 4, 3, 4],
+			"cae": [18, 17, 18],
+			"exam": [49]
+		}
+	},
+	"subject3": {
+		"teacher": "Some teacher",
+		"marks": {
+			"tae": [2, 3, 1, 3, 2, 3, 4],
+			"cae": [14, 19, 16],
+			"exam": [48]
+		}
+	},
+	"subject4": {
+		"teacher": "Some teacher",
+		"marks": {
+			"tae": [0, 3, 1, 4, 3, 2, 4],
+			"cae": [9, 4, 10],
+			"exam": [38]
+		}
+	}
+}

@@ -28,15 +28,15 @@ const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 
-//var config = require('./config');
 
+//var config = require('./config');
 
 var app = express();
 
 var appport = process.env.PORT || 3000;
-var mongolaburi = process.env.MONGOLAB_URI || "mongodb://clavi:clavidbpassword@ds117592.mlab.com:17592/clavi";
+//var mongolaburi = process.env.MONGOLAB_URI || "mongodb://clavi:clavidbpassword@ds117592.mlab.com:17592/clavi";
+var mongolaburi = "mongodb://clavi:clavidbpassword@ds117592.mlab.com:17592/clavi";
 //var mongolaburi = "mongodb://127.0.0.1:27017";
-
 
 
 
@@ -92,6 +92,52 @@ app.use(bodyParser.urlencoded({
 
 
 
+
+
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, __dirname + '/uploads') //you tell where to upload the files,
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + '.png')
+    }
+});
+
+var upload = multer({
+    storage: storage
+});
+
+//app.use(upload.array());
+
+
+app.post('/attendance', upload.single('att'), (req, res) => {
+
+    //console.log(req.query);
+    //console.log(req.body);
+    //console.log(req.file);
+
+
+    if (!req.file) {
+        //console.log("No file received");
+        return res.send("fail");
+
+    } else {
+        //console.log('file received');
+        return res.send("success");
+    }
+});
+
+
+
+
+
+
+
+
+
+// -----------------
 
 
 app.post('/login', function (req, res) {
@@ -279,6 +325,7 @@ app.get('/attendance', function (req, res) {
 
             if (data !== null) {
                 var userpath = "/data/users/" + data.type + "/" + username + "/";
+                //console.log("Connected user");
 
                 var attendancepath = userpath + "attendance.json";
 
@@ -287,7 +334,8 @@ app.get('/attendance', function (req, res) {
                     var attendance = JSON.parse(attendancedata);
 
                     res.send(attendance);
-                    //  console.log("Attendance of " + username + " sent.");
+                    //res.json(attendancedata);
+                    //console.log("Attendance of " + username + " sent.");
                 });
 
             }
@@ -297,6 +345,8 @@ app.get('/attendance', function (req, res) {
     });
 
 });
+
+
 
 app.get('/academics', function (req, res) {
     var username = req.query.username;
@@ -828,13 +878,6 @@ app.get('/papers', function (req, res) {
 
 
 
-
-
-
-
-
-
-
 /****************************
  *                          *
  *       CHAT SERVER        ****************************************************
@@ -919,19 +962,19 @@ io.on('connection', function (socket) {
             });
         }
     });
-/*
-    socket.on("userready", function (data) {
-        console.log("k");
+    /*
+        socket.on("userready", function (data) {
+            console.log("k");
 
-        socket.broadcast.emit('orderready', data);
-        console.log("k");
+            socket.broadcast.emit('orderready', data);
+            console.log("k");
 
-    });
+        });
 
-    socket.on('join', function (data) {
-        console.log(data);
-    });
-*/
+        socket.on('join', function (data) {
+            console.log(data);
+        });
+    */
 });
 
 

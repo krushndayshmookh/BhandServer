@@ -1,111 +1,105 @@
 {
     "Physics": {
-        "totaldays": 35,
-        "dates": [{
-            "date": 1,
-            "date1": 1,
-            "date3": 1,
-            "dated": 1,
+        "dates": {
+            "date": 0,
+            "date0": 0,
+            "date3": 0,
+            "dated": 0,
             "dates": 0,
-            "dateg": 1,
-            "dateh": 1,
-            "dates": 1,
-            "datea": 1,
             "dateg": 0,
-            "dateb": 1,
-            "dates": 1,
+            "dateh": 0,
+            "dates": 0,
+            "datea": 0,
+            "dateg": 0,
+            "dateb": 0,
+            "dates": 0,
             "dates": 0
-        }]
+        }
     },
 
     "Mathematics": {
-        "totaldays": 35,
-        "dates": [{
-            "date": 1,
-            "date1": 1,
-            "date3": 1,
-            "dated": 1,
+        "dates": {
+            "date": 0,
+            "date0": 0,
+            "date3": 0,
+            "dated": 0,
             "dates": 0,
-            "dateg": 1,
-            "dateh": 1,
-            "dates": 1,
-            "datea": 1,
             "dateg": 0,
-            "dateb": 1,
-            "dates": 1,
+            "dateh": 0,
+            "dates": 0,
+            "datea": 0,
+            "dateg": 0,
+            "dateb": 0,
+            "dates": 0,
             "dates": 0
-        }]
+        }
     },
     "Engineering Mechanics": {
-        "totaldays": 35,
-        "dates": [{
-            "date": 1,
-            "date1": 1,
-            "date3": 1,
-            "dated": 1,
+        "dates": {
+            "date": 0,
+            "date0": 0,
+            "date3": 0,
+            "dated": 0,
             "dates": 0,
-            "dateg": 1,
-            "dateh": 1,
-            "dates": 1,
-            "datea": 1,
             "dateg": 0,
-            "dateb": 1,
-            "dates": 1,
+            "dateh": 0,
+            "dates": 0,
+            "datea": 0,
+            "dateg": 0,
+            "dateb": 0,
+            "dates": 0,
             "dates": 0
-        }]
+        }
     },
     "Basics of Computing": {
-        "totaldays": 35,
-        "dates": [{
-            "date": 1,
-            "date1": 1,
-            "date3": 1,
-            "dated": 1,
+        "dates": {
+            "date": 0,
+            "date0": 0,
+            "date3": 0,
+            "dated": 0,
             "dates": 0,
-            "dateg": 1,
-            "dateh": 1,
-            "dates": 1,
-            "datea": 1,
             "dateg": 0,
-            "dateb": 1,
-            "dates": 1,
+            "dateh": 0,
+            "dates": 0,
+            "datea": 0,
+            "dateg": 0,
+            "dateb": 0,
+            "dates": 0,
             "dates": 0
-        }]
+        }
     },
     "Engineering Graphics": {
-        "totaldays": 35,
-        "dates": [{
-            "date": 1,
-            "date1": 1,
-            "date3": 1,
-            "dated": 1,
+        "dates": {
+            "date": 0,
+            "date0": 0,
+            "date3": 0,
+            "dated": 0,
             "dates": 0,
-            "dateg": 1,
-            "dateh": 1,
-            "dates": 1,
-            "datea": 1,
             "dateg": 0,
-            "dateb": 1,
-            "dates": 1,
+            "dateh": 0,
+            "dates": 0,
+            "datea": 0,
+            "dateg": 0,
+            "dateb": 0,
+            "dates": 0,
             "dates": 0
-        }]
+        }
     },
     "Ethics and Professional Competency": {
-        "totaldays": 35,
-        "dates": [{
-            "date": 1,
-            "date1": 1,
-            "date3": 1,
-            "dated": 1,
+        "dates": {
+            "date": 0,
+            "date0": 0,
+            "date3": 0,
+            "dated": 0,
             "dates": 0,
-            "dateg": 1,
-            "dateh": 1,
-            "dates": 1,
-            "datea": 1,
             "dateg": 0,
-            "dateb": 1,
-            "dates": 1,
+            "dateh": 0,
+            "dates": 0,
+            "datea": 0,
+            "dateg": 0,
+            "dateb": 0,
+            "dates": 0,
             "dates": 0
-        }]
+        }
     }
 }
