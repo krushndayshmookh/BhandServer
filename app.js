@@ -27,7 +27,12 @@
 const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+var fr = require('face-recognition');
 
+
+
+var detector = fr.FaceDetector();
+var recognizer = fr.FaceRecognizer();
 
 //var config = require('./config');
 
@@ -124,8 +129,31 @@ app.post('/attendance', upload.single('att'), (req, res) => {
         return res.send("fail");
 
     } else {
-        //console.log('file received');
-        return res.send("success");
+        //console.log(req.file);
+
+        var present = [];
+        const modelState = require(__dirname + '/scripts/model.json');
+        recognizer.load(modelState);
+
+        var image = fr.loadImage(req.file.path);
+
+        var faces = detector.detectFaces(image);
+        //const faceRectangles = detector.locateFaces(image);
+
+        for (var face in faces) {
+            present[face] = recognizer.predictBest(image);
+        }
+
+
+
+        //const predictions = recognizer.predict(image);
+        //console.log(predictions);
+
+        return res.send({
+            faces: faces.length-,
+            present: present
+        });
+
     }
 });
 
@@ -187,8 +215,6 @@ app.post('/login', function (req, res) {
 });
 
 app.post('/passwordreset', function (req, res) {
-
-
 
     MongoClient.connect(url, function (err, db) {
 
