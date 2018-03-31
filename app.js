@@ -39,8 +39,8 @@ var recognizer = fr.FaceRecognizer();
 var app = express();
 
 var appport = process.env.PORT || 3000;
-//var mongolaburi = process.env.MONGOLAB_URI || "mongodb://clavi:clavidbpassword@ds117592.mlab.com:17592/clavi";
-var mongolaburi = "mongodb://clavi:clavidbpassword@ds117592.mlab.com:17592/clavi";
+var mongolaburi = process.env.MONGOLAB_URI || "mongodb://clavi:clavidbpassword@ds117592.mlab.com:17592/clavi";
+//var mongolaburi = "mongodb://clavi:clavidbpassword@ds117592.mlab.com:17592/clavi";
 //var mongolaburi = "mongodb://127.0.0.1:27017";
 
 
