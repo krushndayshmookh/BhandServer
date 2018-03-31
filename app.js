@@ -44,10 +44,10 @@ var mongolaburi = process.env.MONGOLAB_URI || "mongodb://clavi:clavidbpassword@d
 //var mongolaburi = "mongodb://127.0.0.1:27017";
 
 
-app.use(function (req, res) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //next();
+    next();
 });
 /****************************
  *                          *
