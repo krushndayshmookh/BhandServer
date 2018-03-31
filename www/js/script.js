@@ -23,7 +23,7 @@ var hostaddress = "http://localhost:3000";
 // ================   document.ready ================
 $(document).ready(function () {
     // initialize jquery
-    $('.button-collapse').sideNav();
+    $('.button-collapse').sidenav();
 
 
    /* $('ul.tabs').tabs({

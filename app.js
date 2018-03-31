@@ -372,6 +372,76 @@ app.get('/attendance', function (req, res) {
 
 });
 
+
+
+
+
+
+app.get("/studentlist", function (req, res) {
+    fs.readFile(__dirname + "/data/departments/" + req.query.dep + "/" + req.query.sem + "/students.json", function (err, orderdata) {
+
+        //console.log(__dirname + "/data/departments/" + req.query.dep + "/" + req.query.sem + "/attendance/students.json");
+        var orders = JSON.parse(orderdata);
+
+        //console.log(orders);
+        res.json(orders);
+    });
+});
+
+app.post("/postattendance", function (req, res) {
+
+
+    //console.log(req.body.present);
+    res.send("yo");
+
+    var dep = req.body.dep;
+    var sem = req.body.sem;
+    var sub = req.body.sub;
+    var present = req.body.present;
+
+
+    fs.writeFile(__dirname + "/data/departments/" + req.query.dep + "/" + req.query.sem + "/attendance/" + new Date + ".json ", function (err, orderdata) {
+
+        res.json(orders);
+    });
+
+
+
+    for (var student in present) {
+        var attendancepath = __dirname + "/data/users/student/" + present[student] + "/attendance.json";
+
+        fs.readFile(attendancepath, function (err1, attendancedata) {
+
+            var attendance = JSON.parse(attendancedata);
+
+            attendance[sub]["dates"][new Date()] = 1;
+
+
+            fs.writeFile(attendancepath, JSON.stringify(attendance), "utf8", function (err) {
+                if (err) {
+                    throw 'error writing file: ' + err;
+                }
+            });
+
+        });
+
+    }
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
 app.get('/library', function (req, res) {
     var username = req.query.username;
 
@@ -514,6 +584,8 @@ app.post("/trialform", function (req, res) {
 
 
 app.use(express.static(__dirname + '/www'));
+
+app.use(express.static(__dirname + '/node_modules'));
 
 
 app.get('/rates', function (req, res) {
@@ -885,6 +957,29 @@ app.get("/menu-card", function (req, res) {
 });
 
 
+
+
+
+
+
+
+
+app.get("/scholarships", function (req, res) {
+    //console.log(req.query.gov);
+    fs.readFile(__dirname + "/data/scholarships/" + req.query.gov + ".json", function (err, orderdata) {
+        var orders = JSON.parse(orderdata);
+        res.send(orders);
+    });
+});
+
+
+
+
+
+
+
+
+
 /****************************
  *                          *
  *      PAPER SERVER        ****************************************************
@@ -932,6 +1027,30 @@ app.get('/papers', function (req, res) {
             }
 
         }
+
+        res.send(sendableObject);
+    });
+
+});
+
+
+
+
+app.get('/universities', function (req, res) {
+
+
+    var sendableObject = [];
+
+
+
+    fs.readdir(__dirname + "/data/universities", function (err, pathcontents) {
+
+        for (var item in pathcontents) {
+
+            sendableObject.push(JSON.parse(fs.readFileSync(__dirname + "/data/universities/"+pathcontents[item])));
+        }
+
+
 
         res.send(sendableObject);
     });

@@ -1,0 +1,175 @@
+{
+    "university": {
+        "name": "University1",
+        "colleges": [
+            {
+                "name": "college1",
+                "student": {
+                    "boys": 20,
+                    "girls": 20,
+                    "total": 40
+                },
+
+                "scholarship": {
+                    "boys": 0,
+                    "girls": 20,
+                    "total": 20,
+                    "spent": 0
+                },
+
+                "branch": {
+                    "cse": 60,
+                    "mechanical": 180,
+                    "electrical": 180,
+                    "etrx": 120,
+                    "it": 60
+                }
+            },
+
+            {
+                "name": "college2",
+                "student": {
+                    "boys": 50,
+                    "girls": 0,
+                    "total": 50
+                },
+
+                "scholarship": {
+                    "boys": 10,
+                    "girls": 10,
+                    "total": 20,
+                    "spent": 140000
+                },
+
+                "branch": {
+                    "cse": 120,
+                    "mechanical": 120,
+                    "electrical": 120,
+                    "etrx": 120,
+                    "it": 60
+                }
+            },
+
+            {
+                "name": "college3",
+                "student": {
+                    "boys": 30,
+                    "girls": 10,
+                    "total": 40
+                },
+
+                "scholarship": {
+                    "boys": 10,
+                    "girls": 0,
+                    "total": 10,
+                    "spent": 0
+                },
+
+                "branch": {
+                    "cse": 60,
+                    "mechanical": 60,
+                    "electrical": 180,
+                    "etrx": 120,
+                    "it": 120
+                }
+            },
+
+            {
+                "name": "college4",
+                "student": {
+                    "boys": 110,
+                    "girls": 0,
+                    "total": 110
+                },
+
+                "scholarship": {
+                    "boys": 10,
+                    "girls": 20,
+                    "total": 30,
+                    "spent": 0
+                },
+
+                "branch": {
+                    "cse": 120,
+                    "mechanical": 120,
+                    "electrical": 60,
+                    "etrx": 60,
+                    "it": 120
+                }
+            },
+
+            {
+                "name": "college5",
+                "student": {
+                    "boys": 20,
+                    "girls": 0,
+                    "total": 20
+                },
+
+                "scholarship": {
+                    "boys": 10,
+                    "girls": 10,
+                    "total": 0,
+                    "spent": 0
+                },
+
+                "branch": {
+                    "cse": 180,
+                    "mechanical": 120,
+                    "electrical": 60,
+                    "etrx": 120,
+                    "it": 180
+                }
+            },
+
+            {
+                "name": "college6",
+                "student": {
+                    "boys": 80,
+                    "girls": 0,
+                    "total": 80
+                },
+
+                "scholarship": {
+                    "boys": 0,
+                    "girls": 0,
+                    "total": 0,
+                    "spent": 0
+                },
+
+                "branch": {
+                    "cse": 60,
+                    "mechanical": 180,
+                    "electrical": 60,
+                    "etrx": 120,
+                    "it": 120
+                }
+            },
+
+            {
+                "name": "college7",
+                "student": {
+                    "boys": 40,
+                    "girls": 50,
+                    "total": 10
+                },
+
+                "scholarship": {
+                    "boys": 10,
+                    "girls": 10,
+                    "total": 0,
+                    "spent": 0
+                },
+
+                "branch": {
+                    "cse": 60,
+                    "mechanical": 60,
+                    "electrical": 60,
+                    "etrx": 120,
+                    "it": 120
+                }
+            }
+
+ ]
+    }
+}

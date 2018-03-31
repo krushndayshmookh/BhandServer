@@ -2,50 +2,268 @@
 <html>
 
 <head>
-	<title>Welcome</title>
+    <title>Welcome</title>
 
-	<!-- -------------------- META ------------------------------------------- -->
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- -------------------- META ------------------------------------------- -->
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-	<!-- -------------------- FONT ------------------------------------------- -->
+    <!-- -------------------- FONT ------------------------------------------- -->
 
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-	<!-- -------------------- CSS ------------------------------------------- -->
-	<link type="text/css" rel="stylesheet" href="/css/materialize.css">
-	<link type="text/css" rel="stylesheet" href="/css/style.css">
+    <!-- -------------------- CSS ------------------------------------------- -->
+    <link type="text/css" rel="stylesheet" href="/css/materialize.css">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
 
-	<!-- -------------------- SCRIPTS ------------------------------------------- -->
-	<script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
-	<script type="text/javascript" src="/js/materialize.js"></script>
-	<script type="text/javascript" src="/js/js.cookie.js"></script>
+    <!-- -------------------- SCRIPTS ------------------------------------------- -->
+    <script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="/js/materialize.js"></script>
+    <script type="text/javascript" src="/js/js.cookie.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 
 </head>
 
 <body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Clavi</a>
+            <!--<ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="sass.html">Sass</a></li>
+                <li><a href="badges.html">Components</a></li>
+                <li><a href="collapsible.html">JavaScript</a></li>
+            </ul>-->
+        </div>
+    </nav>
 
 
-	<!-- -------------------- CONTENT ------------------------------------------- -->
-	<div class="screen-unit valign-wrapper center blue">
-		<div class="container center">
-			<h1 class="center white-text">GovStat</h1>
-
-			<!--<p class="white-text flow-text">Loading...</p>-->
-
-		</div>
-	</div>
-	<!-- -------------------- CONTENT ------------------------------------------- -->
+    <!-- -------------------- CONTENT ------------------------------------------- -->
 
 
-	<!-- --------------------------- SCRIPTS ------------------------------------ -->
-	<script type="text/javascript" src="/js/script.js" id="global-script"></script>
-	<!--<script type="text/javascript" src="loader.js"></script>      RIGHT NOW, WE JUST NEED HELLO!         -->
+
+
+
+
+    <!--<h3 class="center">Welcome</h3>-->
+
+    <div class="row">
+
+        <div class="col s12">
+            <div class="card large">
+
+                <div class="col s4">
+                    <canvas id="universities-pie" width="200" height="200"></canvas>
+                </div>
+
+                <div class="col s4">
+                    <div class="boys">
+                        <h4 class="center">Boys</h4>
+
+                        <div class="container center">
+                            <img src="male.png" class="circle" alt="male" style="max-width: 96px">
+                        </div>
+
+                        <h4 id="boys-num" class="center"></h4>
+
+                    </div>
+                </div>
+
+                <div class="col s4">
+                    <div class="girls">
+                        <h4 class="center">Girls</h4>
+                        <div class="container center">
+                            <img src="woman.png" class="circle " alt="female" style="max-width: 96px">
+                        </div>
+                        <h4 id="girls-num" class="center"></h4>
+
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+
+
+         <div class="col s12">
+                    <canvas id="branch-bar" width="800" height="400"></canvas>
+                </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s4">
+                <div class="card small"></div>
+            </div>
+            <div class="col s4">
+                <div class="card small"></div>
+            </div>
+            <div class="col s4">
+                <div class="card small"></div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+    <!-- -------------------- CONTENT ------------------------------------------- -->
+
+
+    <!-- --------------------------- SCRIPTS ------------------------------------ -->
+    <script type="text/javascript" src="/js/script.js" id="global-script"></script>
+
+
+
+
+
+
+
+
+
 
     <script>
-        hideWait();
+        function getUni() {
+            $.get("/universities", function(universities) {
+
+                var unidata = {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"]
+                    }]
+                };
+                var branchdata = {
+
+                    labels: ["cse", "mechanical", "electrical", "etrx", "it"],
+                    datasets: [{
+                            label: "cse",
+                            data: [],
+                            backgroundColor: "#287157"
+                        },
+                        {
+                            "label": "mechanical",
+                            data: [],
+                            backgroundColor: "#233457"
+                        },
+
+                        {
+                            "label": "electrical",
+                            data: [],
+                            backgroundColor: "#2a3457"
+                        },
+
+                        {
+                            "label": "etrx",
+                            data: [],
+                            backgroundColor: "#234157"
+                        },
+
+                        {
+                            "label": "it",
+                            data: [],
+                            backgroundColor: "#2aabb7"
+                        }
+                    ]
+                };
+
+                var totalboys = 0;
+                var totalgirls = 0;
+                var totalstudents = 0;
+
+
+                for (var university in universities) {
+
+                    unidata["labels"].push(universities[university]["university"]["name"]);
+
+                    //console.log(universities[university]);
+
+                    var l = universities[university]["university"]["colleges"].length;
+                    unidata["datasets"][0]["data"].push(l);
+
+                    //console.log(universities[university]["university"]["colleges"].length);
+
+
+                    for (var college in universities[university]["university"]["colleges"]) {
+                        totalboys += universities[university]["university"]["colleges"][college]["student"]["boys"];
+                        totalgirls += universities[university]["university"]["colleges"][college]["student"]["girls"];
+                        totalstudents += universities[university]["university"]["colleges"][college]["student"]["total"];
+
+                        var branches = universities[university]["university"]["colleges"][college]["branch"];
+
+                        for (var branch in branches) {
+                            for (var i in branchdata.datasets) {
+                                if (branchdata.datasets[i].label = branch) {
+                                    branchdata.datasets[i].data.push(branches[branch])
+
+                                }
+                            }
+                        }
+
+                    }
+
+
+
+
+
+
+                }
+
+                document.getElementById("boys-num").innerHTML = totalboys;
+                document.getElementById("girls-num").innerHTML = totalgirls;
+
+
+
+                //console.log(unidata);
+
+                new Chart(document.getElementById("universities-pie"), {
+                    type: 'doughnut',
+                    data: unidata,
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Colleges in universities'
+                        }
+                    }
+                });
+
+
+
+                new Chart(document.getElementById("branch-bar"), {
+                    type: 'bar',
+                    data: branchdata,
+                    options: {
+                        responsive: false,
+
+                        scales: {
+                            xAxes: [{
+                                stacked: true // this should be set to make the bars stacked
+                            }],
+                            yAxes: [{
+                                stacked: true // this also..
+                            }]
+                        }
+                    }
+                });
+
+
+
+
+            });
+        }
+
+
+        getUni();
+
     </script>
 
 </body>
