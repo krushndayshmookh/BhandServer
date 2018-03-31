@@ -27,12 +27,12 @@
 const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
-var fr = require('face-recognition');
+//var fr = require('face-recognition');
 
 
 
-var detector = fr.FaceDetector();
-var recognizer = fr.FaceRecognizer();
+//var detector = fr.FaceDetector();
+//var recognizer = fr.FaceRecognizer();
 
 //var config = require('./config');
 
@@ -116,7 +116,7 @@ var upload = multer({
 
 //app.use(upload.array());
 
-
+/*
 app.post('/attendance', upload.single('att'), (req, res) => {
 
     //console.log(req.query);
@@ -161,7 +161,7 @@ app.post('/attendance', upload.single('att'), (req, res) => {
 
 
 
-
+*/
 
 
 
@@ -533,28 +533,6 @@ app.get('/academics', function (req, res) {
 
 });
 
-
-
-
-
-
-
-/****************************
- *                          *
- *       TRIAL-SERVER       ****************************************************
- *                          *
- ****************************
-
-
- * This part is used for serving the experiments.
- *
- */
-
-app.post("/trialform", function (req, res) {
-    console.log(req.body.check);
-    console.log(req.body.gender);
-    res.send("ok");
-});
 
 
 
@@ -1047,7 +1025,7 @@ app.get('/universities', function (req, res) {
 
         for (var item in pathcontents) {
 
-            sendableObject.push(JSON.parse(fs.readFileSync(__dirname + "/data/universities/"+pathcontents[item])));
+            sendableObject.push(JSON.parse(fs.readFileSync(__dirname + "/data/universities/" + pathcontents[item])));
         }
 
 
